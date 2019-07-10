@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'pg'
 gem 'activeadmin'
 gem 'jquery-rails'
+gem 'select2-rails'
+gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
 gem 'devise'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
