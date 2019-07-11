@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:username]
 
+  after_create :create_access_token
+
   before_validation :purify_phone_number
   validates_presence_of :username
   validates_uniqueness_of :username
@@ -20,5 +22,9 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def create_access_token
+    AccessToken.create(expert_id: id)
   end
 end

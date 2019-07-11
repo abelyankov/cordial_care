@@ -1,0 +1,14 @@
+<% flash.each do |key, label| %>
+  <% if key == "alert" %>
+    <%= label %>
+  <% end %>
+<% end %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'ui large form'}) do |f| %>
+  <%= f.text_field :username, autofocus: true, autocomplete: "expert-username", placeholder: "Имя пользователя"  %>
+  <%= f.password_field :password, autofocus: true, autocomplete: "current-password", placeholder: "Пароль"  %>
+  <% if devise_mapping.rememberable? %>
+    <%= f.hidden_field :remember_me, value: "checked" %>
+  <% end %>
+  <%= f.submit "Log in", class: "ui fluid large teal submit button" %>
+<% end %>
+
