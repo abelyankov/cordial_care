@@ -1,5 +1,5 @@
-class Worker < ApplicationRecord
-  belongs_to :role, class_name: 'WorkerRole', foreign_key: 'worker_role_id'
+class Member < ApplicationRecord
+  belongs_to :role, class_name: 'MemberRole', foreign_key: 'member_role_id'
   belongs_to :user
   belongs_to :group, optional: true
   belongs_to :team, optional: true

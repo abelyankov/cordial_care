@@ -1,7 +1,7 @@
-class CreateWorkers < ActiveRecord::Migration[5.2]
+class CreateMembers < ActiveRecord::Migration[5.2]
   def change
-    create_table :workers do |t|
-      t.references :worker_role, null: false
+    create_table :members do |t|
+      t.references :member_role, null: false
       t.references :user, null: false
       t.references :group
       t.references :team

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WorkerRoleTest < ActiveSupport::TestCase
+class MemberRoleTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

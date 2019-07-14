@@ -1,5 +1,5 @@
 ActiveAdmin.register Group do
-  permit_params :name, :location, workers_attributes: [:user_id, :worker_role_id, :id, :_destroy]
+  permit_params :name, :location, members_attributes: [:user_id, :member_role_id, :id, :_destroy]
 
   index do
     selectable_column
@@ -26,11 +26,11 @@ ActiveAdmin.register Group do
       row :location
     end
 
-    panel "Group workers" do
-      entity.workers.each do |worker|
+    panel "Group of members" do
+      entity.members.each do |member|
         div do
-          div worker.user.full_name
-          div worker.role.name
+          div member.user.full_name
+          div member.role.name
         end
       end
     end
@@ -41,9 +41,9 @@ ActiveAdmin.register Group do
       f.input :location
     end
 
-    f.has_many :workers, heading: "Group workers", allow_destroy: true do |worker|
+    f.has_many :members, heading: "Group of members", allow_destroy: true do |worker|
       worker.input :user, as: :select2, collection: User.all.map{ |user| [user.full_name, user.id] }
-      worker.input :role, as: :select2, collection: WorkerRole.all.map{ |role| [role.name, role.id] }
+      worker.input :role, as: :select2, collection: MemberRole.all.map{ |role| [role.name, role.id] }
     end
     f.actions
   end

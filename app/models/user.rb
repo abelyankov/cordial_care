@@ -13,8 +13,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :phone_number
   validates_presence_of :email
   validates_uniqueness_of :email
-  has_many :workers
-  has_many :entities, through: :workers
+  has_many :members
+  has_many :groups, through: :members
 
   def purify_phone_number
     self.phone_number = self.phone_number.tr('^0-9', '')
