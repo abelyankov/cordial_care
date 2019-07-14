@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_14_093518) do
+ActiveRecord::Schema.define(version: 2019_07_14_103410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 2019_07_14_093518) do
     t.index ["username"], name: "index_admins_on_username", unique: true
   end
 
+  create_table "brands", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.string "location", null: false
@@ -66,6 +72,36 @@ ActiveRecord::Schema.define(version: 2019_07_14_093518) do
     t.index ["member_role_id"], name: "index_members_on_member_role_id"
     t.index ["team_id"], name: "index_members_on_team_id"
     t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "ancestry"
+    t.string "names_depth_cache"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_product_categories_on_ancestry"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "code"
+    t.string "name_eng"
+    t.string "name_rus"
+    t.bigint "product_category_id"
+    t.bigint "brand_id"
+    t.integer "purchasing_price_usd"
+    t.integer "purchasing_price_kzt"
+    t.date "price_period"
+    t.string "freight"
+    t.integer "import_duty"
+    t.integer "vat"
+    t.string "handling_charge"
+    t.integer "unit_price"
+    t.integer "commission"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["product_category_id"], name: "index_products_on_product_category_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -93,25 +129,6 @@ ActiveRecord::Schema.define(version: 2019_07_14_093518) do
     t.datetime "updated_at", null: false
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "worker_roles", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "workers", force: :cascade do |t|
-    t.bigint "worker_role_id", null: false
-    t.bigint "user_id", null: false
-    t.bigint "group_id"
-    t.bigint "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_workers_on_group_id"
-    t.index ["team_id"], name: "index_workers_on_team_id"
-    t.index ["user_id"], name: "index_workers_on_user_id"
-    t.index ["worker_role_id"], name: "index_workers_on_worker_role_id"
   end
 
 end
