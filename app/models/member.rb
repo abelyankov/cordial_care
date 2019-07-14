@@ -3,6 +3,13 @@ class Member < ApplicationRecord
   belongs_to :user
   belongs_to :group, optional: true
   belongs_to :team, optional: true
+  has_many :sellers, class_name: "Sale", foreign_key: "seller_id"
+  has_many :buyers, class_name: "Sale", foreign_key: "buyer_id"
+
+
+  def member_full_name
+    "#{self.user.full_name}"
+  end
 
   def description
     "#{self.role.name} #{self.entity.name}"
