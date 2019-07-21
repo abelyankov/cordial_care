@@ -7,10 +7,14 @@ class ProductCategory < ApplicationRecord
   def cache_ancestry
     self.names_depth_cache = path.map(&:name).join('/')
   end
-  
+
   def short_name
     a = path.map{|a| a.name[0]}
     a.pop
     a.join("")
+  end
+
+  def ancestry_id
+    "#{self.ancestry}/#{self.id}"
   end
 end

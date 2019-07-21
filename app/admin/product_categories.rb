@@ -22,7 +22,7 @@ ActiveAdmin.register ProductCategory do
       f.input :name
       f.input :ancestry,
               as: :select2,
-              collection: ProductCategory.order(:names_depth_cache).map { |c| ["#{c.names_depth_cache} " + c.name, c.id]}
+              collection: ProductCategory.order(:names_depth_cache).map { |c| ["#{c.names_depth_cache} " + c.name, c.ancestry_id]}
     end
     f.actions
   end
