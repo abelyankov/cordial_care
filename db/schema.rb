@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_14_170132) do
+ActiveRecord::Schema.define(version: 2019_07_20_081655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,15 @@ ActiveRecord::Schema.define(version: 2019_07_14_170132) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
-    t.string "location", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_groups_on_location_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "city", null: false
+    t.string "country", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -66,9 +74,11 @@ ActiveRecord::Schema.define(version: 2019_07_14_170132) do
     t.bigint "user_id", null: false
     t.bigint "group_id"
     t.bigint "team_id"
+    t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_members_on_group_id"
+    t.index ["location_id"], name: "index_members_on_location_id"
     t.index ["member_role_id"], name: "index_members_on_member_role_id"
     t.index ["team_id"], name: "index_members_on_team_id"
     t.index ["user_id"], name: "index_members_on_user_id"
@@ -136,9 +146,10 @@ ActiveRecord::Schema.define(version: 2019_07_14_170132) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name", null: false
-    t.string "location", null: false
+    t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_teams_on_location_id"
   end
 
   create_table "users", force: :cascade do |t|

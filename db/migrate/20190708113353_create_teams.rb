@@ -2,7 +2,7 @@ class CreateTeams < ActiveRecord::Migration[5.2]
   def change
     create_table :teams do |t|
       t.string :name, null: false
-      t.string :location, null: false
+      t.references :location, null: false
       t.timestamps
     end
   end

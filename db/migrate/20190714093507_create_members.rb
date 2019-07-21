@@ -5,6 +5,7 @@ class CreateMembers < ActiveRecord::Migration[5.2]
       t.references :user, null: false
       t.references :group
       t.references :team
+      t.references :location
       t.timestamps
     end
   end

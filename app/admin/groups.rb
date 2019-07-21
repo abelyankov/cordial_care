@@ -1,11 +1,14 @@
 ActiveAdmin.register Group do
-  permit_params :name, :location, members_attributes: [:user_id, :member_role_id, :id, :_destroy]
+  permit_params :name, :location_id, members_attributes: [:user_id, :member_role_id, :id, :_destroy]
 
   index do
     selectable_column
     id_column
     column :name
-    column :location
+    column "Location" do |l|
+      location = Location.find(l.location_id)
+      location.full_location
+    end
     column :current_sign_in_at, :sortable => :created_at do |obj|
       obj.created_at.localtime
     end
@@ -38,7 +41,7 @@ ActiveAdmin.register Group do
   form do |f|
     f.inputs :multipart => true do
       f.input :name
-      f.input :location
+      f.input :location_id, as: :select2, collection: Location.all.map{ |l| [l.full_location, l.id]}
     end
 
     f.has_many :members, heading: "Group of members", allow_destroy: true do |worker|

@@ -76,3 +76,6 @@ SaleType.find_or_create_by(name: "Self purchasing")
 SaleType.find_or_create_by(name: "Membership new")
 SaleType.find_or_create_by(name: "Membership old")
 SaleType.find_or_create_by(name: "Resell")
+
+Location.find_or_create_by(country: "Казахстан", city: "Алматы")
+Location.find_or_create_by(country: "Казахстан", city: "Астана")
