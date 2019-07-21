@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/doabit/semantic-ui-sass.git
+  revision: 97fc26081d91213370cde9223db69049bbe69e7d
+  specs:
+    semantic-ui-sass (2.4.2.0)
+      sass (>= 3.2)
+
+GIT
   remote: https://github.com/mfairburn/activeadmin-select2.git
   revision: f35b0367cca61266737c94ca9a94cd142c95b763
   specs:
@@ -347,6 +354,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   select2-rails
   selenium-webdriver
+  semantic-ui-sass!
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
