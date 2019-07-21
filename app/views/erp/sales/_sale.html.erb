@@ -1,0 +1,34 @@
+<div class="ui segment">
+  <a href="<%= sale_path(sale) %>" class="ui label" style="margin-left: 8px">
+    #<%= sale.product.code %></a>
+  <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status%></span>
+  <div class="item" style="padding:10px">
+    <div class="content">
+      <%= sale.product.name_rus %> Quantity: <%= sale.quantity %>  Amount:<%= sale.amount %>
+    </div>
+  </div>
+
+  <div class="ui horizontal mini list" style="opacity: 0.6; margin-top: 0; width: 100%; margin-left: 3px">
+    <div class="item" style="float: right">
+      <%= l sale.created_at.in_time_zone("Asia/Almaty"), format: :short %>
+    </div>
+    <div class="item">
+      Seller: <%= sale.seller.member_full_name %>
+    </div>
+    <div class="item">
+      Buyer: <%= sale.buyer.member_full_name %>
+    </div>
+    <div class="item">
+      Quantity: <%= sale.quantity%>
+    </div>
+    <div class="item">
+      Amount: <%= sale.amount %>
+    </div>
+    <div class="item">
+      Group: <%= sale.group.name%>
+    </div>
+    <div class="item">
+      Team: <%= sale.team.name%>
+    </div>
+  </div>
+</div>

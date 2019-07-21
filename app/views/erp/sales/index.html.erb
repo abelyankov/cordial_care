@@ -1,0 +1,10 @@
+<h1>
+  Sales
+  <a class="ui right floated small button" style="background-color: #81bded; color: white"
+     href="<%= new_sale_path %>"
+     id="new-question-button">
+    Add sale
+  </a>
+
+</h1>
+<%= render partial:'erp/sales/sale', collection: @sales, locals: { list: true } %>

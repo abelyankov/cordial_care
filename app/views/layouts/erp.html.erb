@@ -15,10 +15,10 @@
   </head>
 
   <body>
-<!--    <div class="ui fixed vertical inverted menu" style="width: 200px; position: fixed; top: 0;left: 0; bottom: 0;">-->
-      <%#= render 'arm/partials/sidebar_menu' %>
-<!--    </div>-->
-<!--    <div style="padding:40px 40px 40px 240px; min-height: 100vh; background-color: white; ">-->
+    <div class="ui fixed vertical inverted menu" style="width: 150px; position: fixed; top: 0;left: 0; bottom: 0;">
+      <%= render 'erp/partials/sidebar_menu' %>
+    </div>
+    <div style="padding:40px 40px 40px 170px; min-height: 100vh; background-color: white;">
       <% flash.each do |key, text| %>
         <% if key == "notice" %>
           <div class="ui positive message">

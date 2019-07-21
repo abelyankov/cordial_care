@@ -12,5 +12,6 @@ Rails.application.routes.draw do
 
   scope module: 'erp', path: 'erp' do
     root 'home#index'
+    resources :sales
   end
 end

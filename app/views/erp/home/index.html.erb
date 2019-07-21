@@ -1,1 +1,64 @@
-Ты вошёл <%= current_user.full_name %>
+<div class="ui grid">
+  <div class="sixteen wide column">
+    <div class="field">
+      <h2>Statistics</h2>
+      <div class="ui small statistics">
+        <div class="statistic">
+          <div class="value">
+            <%= @sales.where(status: :new).count %>
+          </div>
+          <div class="label">
+            New Sales
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="value">
+            <%= @sales.where(status: :accepted).count %>
+          </div>
+          <div class="label">
+            Accepted Sales
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="value">
+            <%=@members.count %>
+          </div>
+          <div class="label">
+            Members
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="value">
+            <%= Group.all.count %>
+          </div>
+          <div class="label">
+           Groups
+          </div>
+        </div>
+        <div class="statistic">
+          <div class="value">
+            <%= Team.all.count %>
+          </div>
+          <div class="label">
+            Teams
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="six wide column">
+    <div class="field">
+      <div class="ui horizontal list">
+        <div class="item">
+          <h2>New Sales</h2>
+        </div>
+        <div class="item">
+          <a href="/erp/sales">All sales</a>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <%= render partial:'erp/sales/sale', collection: @sales, locals: { list: true } %>
+    </div>
+  </div>
+</div>

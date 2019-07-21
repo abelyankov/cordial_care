@@ -9,7 +9,7 @@ class Member < ApplicationRecord
 
 
   def member_full_name
-    "##{self.id}"
+    "#{user.first_name} #{user.last_name}"
   end
 
   def description
