@@ -1,5 +1,11 @@
 {
   "name": "cordial_care",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "fomantic-ui": "^2.7.6",
+    "jquery-mask-plugin": "^1.14.15",
+    "ruby-on-rails": "^0.0.0",
+    "semantic-ui": "^2.4.2",
+    "semantic-ui-transition": "^2.3.1"
+  }
 }

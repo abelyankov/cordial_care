@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_20_081655) do
+ActiveRecord::Schema.define(version: 2019_07_22_100122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,21 +127,27 @@ ActiveRecord::Schema.define(version: 2019_07_20_081655) do
     t.bigint "buyer_id"
     t.bigint "group_id"
     t.bigint "team_id"
-    t.bigint "product_id"
-    t.bigint "brand_id"
-    t.integer "quantity"
-    t.integer "amount"
     t.integer "commission_normal"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["brand_id"], name: "index_sales_on_brand_id"
     t.index ["buyer_id"], name: "index_sales_on_buyer_id"
     t.index ["group_id"], name: "index_sales_on_group_id"
-    t.index ["product_id"], name: "index_sales_on_product_id"
     t.index ["sale_type_id"], name: "index_sales_on_sale_type_id"
     t.index ["seller_id"], name: "index_sales_on_seller_id"
     t.index ["team_id"], name: "index_sales_on_team_id"
+  end
+
+  create_table "sales_products", force: :cascade do |t|
+    t.string "productable_type"
+    t.bigint "productable_id"
+    t.bigint "product_id", null: false
+    t.integer "quantity", null: false
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sales_products_on_product_id"
+    t.index ["productable_type", "productable_id"], name: "index_sales_products_on_productable_type_and_productable_id"
   end
 
   create_table "teams", force: :cascade do |t|

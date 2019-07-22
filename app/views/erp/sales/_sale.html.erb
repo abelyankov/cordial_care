@@ -1,10 +1,15 @@
 <div class="ui segment">
   <a href="<%= sale_path(sale) %>" class="ui label" style="margin-left: 8px">
-    #<%= sale.product.code %></a>
-  <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status%></span>
+    #<%= sale.id %></a>
+  <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status %></span>
   <div class="item" style="padding:10px">
     <div class="content">
-      <%= sale.product.name_rus %> Quantity: <%= sale.quantity %>  Amount:<%= sale.amount %>
+      <% sale.sales_products.each do |sale| %>
+        <span style="font-weight:bold">Product</span>: <%= sale.product.name_eng %>;
+        <span style="font-weight:bold">Quantity</span>: <%= sale.quantity %>;
+        <span style="font-weight:bold">Amount</span>: <%= sale.amount %>;
+      <% end %>
+
     </div>
   </div>
 
@@ -17,12 +22,6 @@
     </div>
     <div class="item">
       Buyer: <%= sale.buyer.member_full_name %>
-    </div>
-    <div class="item">
-      Quantity: <%= sale.quantity%>
-    </div>
-    <div class="item">
-      Amount: <%= sale.amount %>
     </div>
     <div class="item">
       Group: <%= sale.group.name%>

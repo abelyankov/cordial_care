@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   belongs_to :brand
   before_save :generate_product_code
   has_many :sales, inverse_of: :product
+  has_many :sales_products, inverse_of: :product
   validates_uniqueness_of :code
 
   private

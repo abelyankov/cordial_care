@@ -1,3 +1,7 @@
+<div class="item <%= "active" if params[:controller] == "profile" %>"
+     onclick="javascript:window.location.href='<%=root_path %>'">
+  <i class="user icon" style="float: left; margin:0 5px 0 0;"></i> Profile
+</div>
 <div class="item <%= "active" if params[:controller] == "home" %>"
      onclick="javascript:window.location.href='<%=root_path %>'">
   <i class="home icon" style="float: left; margin:0 5px 0 0;"></i> Home
