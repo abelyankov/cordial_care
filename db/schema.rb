@@ -48,14 +48,6 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "location_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["location_id"], name: "index_groups_on_location_id"
-  end
-
   create_table "locations", force: :cascade do |t|
     t.string "city", null: false
     t.string "country", null: false
@@ -72,13 +64,10 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
   create_table "members", force: :cascade do |t|
     t.bigint "member_role_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "group_id"
     t.bigint "team_id"
-    t.bigint "location_id"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_members_on_group_id"
-    t.index ["location_id"], name: "index_members_on_location_id"
     t.index ["member_role_id"], name: "index_members_on_member_role_id"
     t.index ["team_id"], name: "index_members_on_team_id"
     t.index ["user_id"], name: "index_members_on_user_id"
@@ -94,20 +83,22 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "code"
-    t.string "name_eng"
+    t.string "code", null: false
+    t.string "name_eng", null: false
     t.string "name_rus"
     t.bigint "product_category_id"
     t.bigint "brand_id"
-    t.integer "purchasing_price_usd"
+    t.integer "membership_price_kzt"
     t.integer "purchasing_price_kzt"
     t.date "price_period"
     t.string "freight"
     t.integer "import_duty"
     t.integer "vat"
     t.string "handling_charge"
+    t.string "unit_type"
     t.integer "unit_price"
-    t.integer "commission"
+    t.integer "basic_commission"
+    t.integer "total_commission"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_products_on_brand_id"
@@ -125,14 +116,13 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.date "sale_date"
     t.bigint "seller_id"
     t.bigint "buyer_id"
-    t.bigint "group_id"
     t.bigint "team_id"
-    t.integer "commission_normal"
+    t.bigint "product_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["buyer_id"], name: "index_sales_on_buyer_id"
-    t.index ["group_id"], name: "index_sales_on_group_id"
+    t.index ["product_id"], name: "index_sales_on_product_id"
     t.index ["sale_type_id"], name: "index_sales_on_sale_type_id"
     t.index ["seller_id"], name: "index_sales_on_seller_id"
     t.index ["team_id"], name: "index_sales_on_team_id"

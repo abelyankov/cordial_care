@@ -5,13 +5,8 @@ class CreateSales < ActiveRecord::Migration[5.2]
       t.date :sale_date
       t.references :seller
       t.references :buyer
-      t.references :group
       t.references :team
       t.references :product
-      t.references :brand
-      t.integer :quantity
-      t.integer :amount
-      t.integer :commission_normal
       t.string :status
       t.timestamps
     end

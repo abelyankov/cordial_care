@@ -1,33 +1,34 @@
-<div class="ui segment">
-  <a href="<%= sale_path(sale) %>" class="ui label" style="margin-left: 8px">
-    #<%= sale.id %></a>
-  <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status %></span>
-  <div class="item" style="padding:10px">
-    <div class="content">
-      <% sale.sales_products.each do |sale| %>
-        <span style="font-weight:bold">Product</span>: <%= sale.product.name_eng %>;
-        <span style="font-weight:bold">Quantity</span>: <%= sale.quantity %>;
-        <span style="font-weight:bold">Amount</span>: <%= sale.amount %>;
-      <% end %>
+<div class="ui grid">
+  <div class="six wide column">
+    <div class="ui segment ">
+      <a href="<%= sale_path(sale) %>" class="ui label" style="margin-left: 8px">
+        #<%= sale.id %></a>
+      <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status %></span>
+      <div class="item" style="padding:10px">
+        <div class="content">
+          <% sale.sales_products.each do |sale| %>
+            <span style="font-weight:bold">Product</span>: <%= sale.product.name_eng %>;
+            <span style="font-weight:bold">Quantity</span>: <%= sale.quantity %>;
+            <span style="font-weight:bold">Amount</span>: <%= sale.amount %>;<br/>
+          <% end %>
+          <br/><span style="font-weight:bold">Total amount</span>: <%= sale.sales_products.sum(:amount)  %>
+        </div>
+      </div>
 
-    </div>
-  </div>
-
-  <div class="ui horizontal mini list" style="opacity: 0.6; margin-top: 0; width: 100%; margin-left: 3px">
-    <div class="item" style="float: right">
-      <%= l sale.created_at.in_time_zone("Asia/Almaty"), format: :short %>
-    </div>
-    <div class="item">
-      Seller: <%= sale.seller.member_full_name %>
-    </div>
-    <div class="item">
-      Buyer: <%= sale.buyer.member_full_name %>
-    </div>
-    <div class="item">
-      Group: <%= sale.group.name%>
-    </div>
-    <div class="item">
-      Team: <%= sale.team.name%>
+      <div class="ui horizontal mini list" style="opacity: 0.6; margin-top: 0; width: 100%; margin-left: 3px">
+        <div class="item" style="float: right">
+          <%= l sale.created_at.in_time_zone("Asia/Almaty"), format: :short %>
+        </div>
+        <div class="item">
+          Seller: <%= sale.seller.member_full_name %>
+        </div>
+        <div class="item">
+          Buyer: <%= sale.buyer.member_full_name %>
+        </div>
+        <div class="item">
+          Team: <%= sale.team.name%>
+        </div>
+      </div>
     </div>
   </div>
 </div>

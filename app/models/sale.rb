@@ -4,7 +4,6 @@ class Sale < ApplicationRecord
   belongs_to :type, class_name: "SaleType", foreign_key: "sale_type_id"
   has_many :sales_products, as: :productable, dependent: :destroy
   belongs_to :team, inverse_of: :sales
-  belongs_to :group, inverse_of: :sales
   belongs_to :seller, class_name: "Member"
   belongs_to :buyer, class_name: "Member"
 

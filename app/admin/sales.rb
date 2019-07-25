@@ -1,8 +1,7 @@
 ActiveAdmin.register Sale do
   permit_params :sale_type_id, :sale_date,
-                :seller_id, :buyer_id,
-                :group_id, :team_id,
-                :product_id, :quantity,
+                :seller_id, :buyer_id, :team_id,
+                :product_ids, :quantity,
                 :commission_normal, :brand_id
 
   index do
@@ -12,13 +11,8 @@ ActiveAdmin.register Sale do
     column :sale_date
     column :seller
     column :buyer
-    column :group
     column :team
-    column :brand
-    column :product
-    column :quantity
-    column :amount
-    column :commission_normal
+    column :status
   end
 
   form do |f|
@@ -27,7 +21,6 @@ ActiveAdmin.register Sale do
       f.input :sale_date
       f.input :seller, as: :select2, collection: Member.all.map{|m| [m.member_full_name, m.id]}
       f.input :buyer, as: :select2, collection: Member.all.map{|m| [m.member_full_name, m.id]}
-      f.input :group, as: :select2, collection: Group.all.map{|g| [g.name, g.id]}
       f.input :team, as: :select2, collection: Team.all.map{|t| [t.name, t.id]}
       f.input :product, as: :select2, collection: Product.all.map{|p| ["#{p.code}-#{p.name_eng}", p.id]}
       f.input :brand, as: :select2, collection: Brand.all.map{|b| [b.name, b.id]}

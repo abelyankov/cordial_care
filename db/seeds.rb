@@ -1,13 +1,32 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-Admin.create!(username: 'cordial_care_admin',
+Admin.create!(username: 'cordialcare_admin',
               password: 'password',
               password_confirmation: 'password') if Admin.find_by(username: 'cordial_care_admin').nil?
+
+user = User.create!(username: 'abelyankov',
+             password: 'cordial123',
+             password_confirmation: 'cordial123',
+             first_name: 'Arthur',
+             last_name: 'Belyankov',
+             email: 'abelyankov@cd.kz',
+             phone_number: 77083515737,
+             address: 'Zheltoksan, 137',
+             marital_status: 'Free',
+             gender: 'Male'
+             )
+
+user_1 = User.create!(username: 'test_name',
+                    password: 'cordial123',
+                    password_confirmation: 'cordial123',
+                    first_name: 'Test',
+                    last_name: 'Name',
+                    email: 'test@cd.kz',
+                    phone_number: 77083515738,
+                    address: 'Nurly-Tau, 5k2a',
+                    marital_status: 'Free',
+                    gender: 'Female'
+)
+
+
 
 name_of_members_role = ["Beauty Consultant",
                         "Beauty Consultant Leader",
@@ -18,6 +37,10 @@ name_of_members_role = ["Beauty Consultant",
 name_of_members_role.each do |member_role|
   MemberRole.find_or_create_by(name: member_role)
 end
+kz = Location.find_or_create_by(city: "Almaty", country:"Kazakhstan")
+t1 = Team.find_or_create_by(name: "Almaty #1", location: kz)
+Member.create(user: user, role: MemberRole.find_by(name: "Beauty Consultant Leader"), team: t1)
+Member.create(user: user_1, role: MemberRole.find_by(name: "Team manager"), team: t1)
 
 if ProductCategory.all.count == 0
   category_1 = ProductCategory.create(name: "Beauty care")
@@ -79,3 +102,32 @@ SaleType.find_or_create_by(name: "Resell")
 
 Location.find_or_create_by(country: "Казахстан", city: "Алматы")
 Location.find_or_create_by(country: "Казахстан", city: "Астана")
+
+
+es = Brand.find_or_create_by(name: "ESROOM")
+well = Brand.find_or_create_by(name: "WELL NATURE")
+
+Product.find_or_create_by(name_eng: "Recovery All in One Solution",
+                          membership_price_kzt: 20000,
+                          brand_id: es.id,
+                          product_category_id: category__3_1.id,
+                          unit_price: 30000,
+                          unit_type: '200ml',
+                          basic_commission: 25,
+                          total_commission: 50)
+
+Product.find_or_create_by(name_eng: "Recovery Memory Cream",
+                          membership_price_kzt: 25000,
+                          brand_id: es.id,
+                          unit_price: 40000,
+                          unit_type: '50ml',
+                          basic_commission: 25,
+                          total_commission: 53)
+
+Product.find_or_create_by(name_eng: "Moisture Speed Mist Toner",
+                          brand_id: well.id,
+                          unit_price: 10000,
+                          membership_price_kzt: 8000,
+                          unit_type: '155ml',
+                          basic_commission: 20,
+                          total_commission: 36)

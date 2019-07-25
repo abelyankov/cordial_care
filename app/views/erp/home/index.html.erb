@@ -29,24 +29,24 @@
         </div>
         <div class="statistic">
           <div class="value">
-            <%= Group.all.count %>
-          </div>
-          <div class="label">
-           Groups
-          </div>
-        </div>
-        <div class="statistic">
-          <div class="value">
             <%= Team.all.count %>
           </div>
           <div class="label">
             Teams
           </div>
         </div>
+        <div class="statistic">
+          <div class="value">
+            <%= SalesProduct.all.sum(:amount)%>
+          </div>
+          <div class="label">
+            Total amount
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="six wide column">
+  <div class="twelve wide column">
     <div class="field">
       <div class="ui horizontal list">
         <div class="item">

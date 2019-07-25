@@ -22,7 +22,6 @@ module Erp
         @sale.buyer_id = params[:sale][:buyer_id]
       end
       seller = Member.find_by(id: params[:sale][:seller_id])
-      @sale.group = seller.group
       @sale.team = seller.team
 
       permitted_items = params.require(:sale).permit([items: [:product_id, :quantity]])

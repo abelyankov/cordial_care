@@ -62,8 +62,8 @@ ActiveAdmin.register User do
       f.input :email
       f.input :phone_number, input_html: { data: { mask: '+7 (000) 000-00-00' }}
       f.input :address
-      f.input :marital_status, as: :select,  collection: ["В отношениях", "В браке", "Разводен", "Предпочитаю не указывать"]
-      f.input :gender, as: :select, collection: ["Мужской", "Женский", "Предпочитаю не указывать"]
+      f.input :marital_status, as: :select,  collection: ["Free"]
+      f.input :gender, as: :select, collection: ["Male", "Female", "None"]
       f.input :username
       f.input :password
       f.input :password_confirmation

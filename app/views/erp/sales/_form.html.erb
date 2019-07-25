@@ -1,6 +1,5 @@
 <%= form_for sale, html: { class: "ui form grid" } do |f| %>
 
-  <%= f.hidden_field :group_id, required: true %>
   <%= f.hidden_field :team_id, required: true %>
 
   <% if sale.errors.any? %>
