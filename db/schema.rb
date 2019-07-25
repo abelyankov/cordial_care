@@ -117,12 +117,10 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.bigint "seller_id"
     t.bigint "buyer_id"
     t.bigint "team_id"
-    t.bigint "product_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["buyer_id"], name: "index_sales_on_buyer_id"
-    t.index ["product_id"], name: "index_sales_on_product_id"
     t.index ["sale_type_id"], name: "index_sales_on_sale_type_id"
     t.index ["seller_id"], name: "index_sales_on_seller_id"
     t.index ["team_id"], name: "index_sales_on_team_id"
@@ -134,6 +132,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.bigint "product_id", null: false
     t.integer "quantity", null: false
     t.integer "amount", null: false
+    t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_sales_products_on_product_id"

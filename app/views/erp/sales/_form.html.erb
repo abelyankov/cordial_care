@@ -29,7 +29,7 @@
     <div class="four wide column">
       <div class="field">
         <label>Sale Date</label>
-            <%= f.date_field :sale_date, placeholder: "Дата/Время" %>
+            <%= f.date_field :sale_date, placeholder: "Дата/Время", :order => [:day, :month, :year], required: true %>
       </div>
     </div>
   </div>

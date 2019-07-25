@@ -6,7 +6,6 @@ class CreateSales < ActiveRecord::Migration[5.2]
       t.references :seller
       t.references :buyer
       t.references :team
-      t.references :product
       t.string :status
       t.timestamps
     end

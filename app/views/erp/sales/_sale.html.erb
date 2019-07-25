@@ -1,34 +1,36 @@
-<div class="ui grid">
-  <div class="six wide column">
-    <div class="ui segment ">
-      <a href="<%= sale_path(sale) %>" class="ui label" style="margin-left: 8px">
-        #<%= sale.id %></a>
-      <span class="ui <%= sale.status.color %> top right attached label"><%= sale.status %></span>
-      <div class="item" style="padding:10px">
-        <div class="content">
-          <% sale.sales_products.each do |sale| %>
-            <span style="font-weight:bold">Product</span>: <%= sale.product.name_eng %>;
-            <span style="font-weight:bold">Quantity</span>: <%= sale.quantity %>;
-            <span style="font-weight:bold">Amount</span>: <%= sale.amount %>;<br/>
-          <% end %>
-          <br/><span style="font-weight:bold">Total amount</span>: <%= sale.sales_products.sum(:amount)  %>
+<tbody>
+<tr>
+  <td style="text-align: center">
+    #<%= sale.id %>
+  </td>
+  <td>
+    Type: <%=  sale.type.name %>
+    <div class="ui red mini label"><%= sale.team.name %></div>
+    <br/>
+    Seller: <%= sale.seller.member_full_name %> <div class="ui orange mini label">Profit:<%= tenge sale.member_profit %></div>
+    <% if sale.type.name != "Self purchasing" %>
+      Buyer: <%= sale.buyer.member_full_name %>
+    <% end %>
+  </td>
+  <td>
+    <div class="ui small labels">
+      <% sale.sales_products.each do |product| %>
+        <div class="ui label" style="background: white">
+          <span style="color: black"><%= Product.find_by(id: product.product_id).code %></span>
+          <span style="color: red"><%= Product.find_by(id: product.product_id).basic_commission %>%</span>
+          <br/>
+          Price: <%= tenge product.price %>; Qty: x<%= product.quantity %><br/>
+          Total:
+          <%=tenge product.amount %>
         </div>
-      </div>
-
-      <div class="ui horizontal mini list" style="opacity: 0.6; margin-top: 0; width: 100%; margin-left: 3px">
-        <div class="item" style="float: right">
-          <%= l sale.created_at.in_time_zone("Asia/Almaty"), format: :short %>
-        </div>
-        <div class="item">
-          Seller: <%= sale.seller.member_full_name %>
-        </div>
-        <div class="item">
-          Buyer: <%= sale.buyer.member_full_name %>
-        </div>
-        <div class="item">
-          Team: <%= sale.team.name%>
-        </div>
-      </div>
+      <% end %>
     </div>
-  </div>
-</div>
+  </td>
+  <td style="text-align: center">
+    <%= tenge sale.sales_products.sum(:amount) %>
+  </td>
+  <td style="text-align: center">
+    <%= tenge sale.sales_products.sum(:amount) - sale.member_profit %>
+  </td>
+</tr>
+</tbody>

@@ -37,28 +37,13 @@
         </div>
         <div class="statistic">
           <div class="value">
-            <%= SalesProduct.all.sum(:amount)%>
+            <%=tenge  SalesProduct.all.sum(:amount)%>
           </div>
           <div class="label">
             Total amount
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="twelve wide column">
-    <div class="field">
-      <div class="ui horizontal list">
-        <div class="item">
-          <h2>New Sales</h2>
-        </div>
-        <div class="item">
-          <a href="/erp/sales">All sales</a>
-        </div>
-      </div>
-    </div>
-    <div class="field">
-      <%= render partial:'erp/sales/sale', collection: @sales, locals: { list: true } %>
     </div>
   </div>
 </div>

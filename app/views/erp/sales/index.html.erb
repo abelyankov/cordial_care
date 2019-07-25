@@ -1,10 +1,71 @@
 <h1>
   Sales
-  <a class="ui right floated small button" style="background-color: #81bded; color: white"
+  <a class="ui right floated blue small button" style=" color: white"
      href="<%= new_sale_path %>"
      id="new-question-button">
     Add sale
   </a>
 
 </h1>
+
+<div class="ui small statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= @sales.where(sale_date: Date.today_in_zone('Almaty')).count %>
+    </div>
+    <div class="label">
+      Sales Today
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <% @a = [] %>
+      <% @sales.where(sale_date: Date.today_in_zone('Almaty')).each do |sale| %>
+        <% @a << sale.sales_products.sum(:amount) %>
+      <% end %>
+      <%= tenge @a.sum() %>
+    </div>
+    <div class="label">
+     Amount Today
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value" style="color: red">
+      <% @p = [] %>
+      <% @sales.where(sale_date: Date.today_in_zone('Almaty')).each do |sale| %>
+        <% @p << sale.sales_products.sum(:amount) - sale.member_profit %>
+      <% end %>
+      <%= tenge @p.sum() %>
+    </div>
+    <div class="label" style="color: red">
+      Profit Today
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value" style="color: orange">
+      <% @m = [] %>
+      <% @sales.where(sale_date: Date.today_in_zone('Almaty')).each do |sale| %>
+        <% @m << sale.member_profit %>
+      <% end %>
+      <%= tenge @m.sum() %>
+    </div>
+    <div class="label" style="color: orange">
+      Members Profit Today
+    </div>
+  </div>
+</div>
+
+<table class="ui celled table">
+  <thead>
+  <tr style="text-align: center">
+    <th>Sale id</th>
+    <th>Sale Info</th>
+    <th>Products</th>
+    <th>Total</th>
+    <th>Profit</th>
+  </tr>
+  </thead>
 <%= render partial:'erp/sales/sale', collection: @sales, locals: { list: true } %>
+</table>
+
+

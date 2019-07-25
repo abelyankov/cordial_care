@@ -1,6 +1,6 @@
 Admin.create!(username: 'cordialcare_admin',
               password: 'password',
-              password_confirmation: 'password') if Admin.find_by(username: 'cordial_care_admin').nil?
+              password_confirmation: 'password') if Admin.find_by(username: 'cordialcare_admin').nil?
 
 user = User.create!(username: 'abelyankov',
              password: 'cordial123',
@@ -11,8 +11,7 @@ user = User.create!(username: 'abelyankov',
              phone_number: 77083515737,
              address: 'Zheltoksan, 137',
              marital_status: 'Free',
-             gender: 'Male'
-             )
+             gender: 'Male') if User.find_by(username: 'abelyankov').nil?
 
 user_1 = User.create!(username: 'test_name',
                     password: 'cordial123',
@@ -23,8 +22,7 @@ user_1 = User.create!(username: 'test_name',
                     phone_number: 77083515738,
                     address: 'Nurly-Tau, 5k2a',
                     marital_status: 'Free',
-                    gender: 'Female'
-)
+                    gender: 'Female') if User.find_by(username: 'test_name').nil?
 
 
 
@@ -118,6 +116,7 @@ Product.find_or_create_by(name_eng: "Recovery All in One Solution",
 
 Product.find_or_create_by(name_eng: "Recovery Memory Cream",
                           membership_price_kzt: 25000,
+                          product_category_id: category_4_1.id,
                           brand_id: es.id,
                           unit_price: 40000,
                           unit_type: '50ml',
@@ -126,6 +125,7 @@ Product.find_or_create_by(name_eng: "Recovery Memory Cream",
 
 Product.find_or_create_by(name_eng: "Moisture Speed Mist Toner",
                           brand_id: well.id,
+                          product_category_id: category_4.id,
                           unit_price: 10000,
                           membership_price_kzt: 8000,
                           unit_type: '155ml',
