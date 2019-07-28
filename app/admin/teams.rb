@@ -12,7 +12,6 @@ ActiveAdmin.register Team do
 
   form do |f|
     f.inputs do
-      f.input :name
       f.input :location_id, as: :select2, collection: Location.all.map{|l| [l.full_location, l.id]}
     end
     f.actions

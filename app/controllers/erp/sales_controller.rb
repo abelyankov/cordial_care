@@ -42,7 +42,7 @@ module Erp
           sales_product = SalesProduct.create(product_id: items_id,
                                               quantity: items_quantity,
                                               amount: amount,
-                                              price: price )
+                                              price: price)
           @items_array.push(sales_product.id)
         }
       end

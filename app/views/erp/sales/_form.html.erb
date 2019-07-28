@@ -22,9 +22,9 @@
         <%= f.select :sale_type_id, SaleType.all.map{|p| [p.name, p.id]} %>
       </div>
       <label>Seller</label>
-      <%= f.select :seller_id, Member.all.map{|p| [p.member_full_name, p.id]} %>
+      <%= f.select :seller_id, Member.all.map{|p| [p.full_name, p.id]} %>
       <label>Buyer</label>
-      <%= f.select :buyer_id, Member.all.map{|p| [p.member_full_name, p.id]} %>
+      <%= f.select :buyer_id, Member.all.map{|p| [p.full_name, p.id]} %>
     </div>
     <div class="four wide column">
       <div class="field">

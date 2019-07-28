@@ -7,9 +7,9 @@
     Type: <%=  sale.type.name %>
     <div class="ui red mini label"><%= sale.team.name %></div>
     <br/>
-    Seller: <%= sale.seller.member_full_name %> <div class="ui orange mini label">Profit:<%= tenge sale.member_profit %></div>
+    Seller: <%= sale.seller.full_name %> <div class="ui orange mini label">Commission:<%= tenge sale.member_profit %></div>
     <% if sale.type.name != "Self purchasing" %>
-      Buyer: <%= sale.buyer.member_full_name %>
+      Buyer: <%= sale.buyer.full_name %>
     <% end %>
   </td>
   <td>

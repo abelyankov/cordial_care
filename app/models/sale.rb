@@ -20,7 +20,6 @@ class Sale < ApplicationRecord
   end
 
   def member_profit
-    p self.sales_products
     self.sales_products.each do |sale_product|
       product = Product.find_by(id: sale_product.product_id)
       @profits = sale_product.amount.to_i * product.basic_commission.to_i / 100

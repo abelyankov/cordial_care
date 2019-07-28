@@ -7,7 +7,7 @@ ActiveAdmin.setup do |config|
   config.site_title = "Cordial Care Admin"
 
   # Set the link url for the title. For example, to take
-  # users to your main site. Defaults to no link.
+  # members to your main site. Defaults to no link.
   #
   # config.site_title_link = "/"
 
@@ -117,11 +117,11 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  # config.root_to = 'dashboard#index'
+  config.root_to = 'brands#index'
 
   # == Admin Comments
   #
-  # This allows your users to comment on any resource registered with Active Admin.
+  # This allows your members to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
   config.comments = false
@@ -175,7 +175,7 @@ ActiveAdmin.setup do |config|
   #
   # Add additional meta tags to the head element of active admin pages.
   #
-  # Add tags to all pages logged in users see:
+  # Add tags to all pages logged in members see:
   #   config.meta_tags = { author: 'My Company' }
 
   # By default, sign up/sign in/recover password pages are excluded

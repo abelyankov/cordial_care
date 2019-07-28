@@ -1,31 +1,8 @@
+## Admin
 Admin.create!(username: 'cordialcare_admin',
               password: 'password',
               password_confirmation: 'password') if Admin.find_by(username: 'cordialcare_admin').nil?
-
-user = User.create!(username: 'abelyankov',
-             password: 'cordial123',
-             password_confirmation: 'cordial123',
-             first_name: 'Arthur',
-             last_name: 'Belyankov',
-             email: 'abelyankov@cd.kz',
-             phone_number: 77083515737,
-             address: 'Zheltoksan, 137',
-             marital_status: 'Free',
-             gender: 'Male') if User.find_by(username: 'abelyankov').nil?
-
-user_1 = User.create!(username: 'test_name',
-                    password: 'cordial123',
-                    password_confirmation: 'cordial123',
-                    first_name: 'Test',
-                    last_name: 'Name',
-                    email: 'test@cd.kz',
-                    phone_number: 77083515738,
-                    address: 'Nurly-Tau, 5k2a',
-                    marital_status: 'Free',
-                    gender: 'Female') if User.find_by(username: 'test_name').nil?
-
-
-
+## Member Roles
 name_of_members_role = ["Beauty Consultant",
                         "Beauty Consultant Leader",
                         "Team manager",
@@ -35,11 +12,37 @@ name_of_members_role = ["Beauty Consultant",
 name_of_members_role.each do |member_role|
   MemberRole.find_or_create_by(name: member_role)
 end
-kz = Location.find_or_create_by(city: "Almaty", country:"Kazakhstan")
+## Locations
+kz = Location.find_or_create_by(city: "Almaty", country:"Kazakhstan", code_country: "KZ")
+Location.find_or_create_by(country: "Kazakhstan", city: "Nur-Sultan")
 t1 = Team.find_or_create_by(name: "Almaty #1", location: kz)
-Member.create(user: user, role: MemberRole.find_by(name: "Beauty Consultant Leader"), team: t1)
-Member.create(user: user_1, role: MemberRole.find_by(name: "Team manager"), team: t1)
 
+## Members
+Member.create!(username: 'abelyankov',
+                      password: 'cordial123',
+                      password_confirmation: 'cordial123',
+                      first_name: 'Arthur',
+                      last_name: 'Belyankov',
+                      email: 'abelyankov@cd.kz',
+                      phone_number: 77083515737,
+                      address: 'Zheltoksan, 137',
+                      marital_status: 'Free',
+                      role: MemberRole.find_by(name: "Beauty Consultant Leader"),
+                      gender: 'Male') if Member.find_by(username: 'abelyankov').nil?
+
+Member.create!(username: 'test_name',
+                        password: 'cordial123',
+                        password_confirmation: 'cordial123',
+                        first_name: 'Test',
+                        last_name: 'Name',
+                        email: 'test@cd.kz',
+                        phone_number: 77083515738,
+                        address: 'Nurly-Tau, 5k2a',
+                        marital_status: 'Free',
+                        gender: 'Female',
+                        role: MemberRole.find_by(name: "Beauty Consultant Leader"),
+                        team: t1) if Member.find_by(username: 'test_name').nil?
+## Product Categories
 if ProductCategory.all.count == 0
   category_1 = ProductCategory.create(name: "Beauty care")
   category_1_1 = ProductCategory.create(name: "Health care")
@@ -93,18 +96,17 @@ if ProductCategory.all.count == 0
   category_4_33 = ProductCategory.create(name: "A", parent: category__3_10)
 end
 
+## Sales types
 SaleType.find_or_create_by(name: "Self purchasing")
 SaleType.find_or_create_by(name: "Membership new")
 SaleType.find_or_create_by(name: "Membership old")
 SaleType.find_or_create_by(name: "Resell")
 
-Location.find_or_create_by(country: "Казахстан", city: "Алматы")
-Location.find_or_create_by(country: "Казахстан", city: "Астана")
-
-
+## Brands
 es = Brand.find_or_create_by(name: "ESROOM")
 well = Brand.find_or_create_by(name: "WELL NATURE")
 
+## Products
 Product.find_or_create_by(name_eng: "Recovery All in One Solution",
                           membership_price_kzt: 20000,
                           brand_id: es.id,

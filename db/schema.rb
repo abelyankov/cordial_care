@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_100122) do
+ActiveRecord::Schema.define(version: 2019_07_28_112625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "access_tokens", force: :cascade do |t|
-    t.string "token"
-    t.bigint "expert_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["expert_id"], name: "index_access_tokens_on_expert_id"
-  end
 
   create_table "admins", force: :cascade do |t|
     t.string "username", null: false
@@ -53,6 +45,8 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.string "country", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code_country"
+    t.string "code_city"
   end
 
   create_table "member_roles", force: :cascade do |t|
@@ -62,15 +56,35 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
   end
 
   create_table "members", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "address"
+    t.date "birthday"
+    t.string "marital_status"
+    t.string "gender"
     t.bigint "member_role_id", null: false
-    t.bigint "user_id", null: false
     t.bigint "team_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.string "membership_id"
     t.index ["member_role_id"], name: "index_members_on_member_role_id"
+    t.index ["phone_number"], name: "index_members_on_phone_number", unique: true
     t.index ["team_id"], name: "index_members_on_team_id"
-    t.index ["user_id"], name: "index_members_on_user_id"
+    t.index ["username"], name: "index_members_on_username", unique: true
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -145,26 +159,6 @@ ActiveRecord::Schema.define(version: 2019_07_22_100122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_teams_on_location_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone_number"
-    t.string "address"
-    t.date "birthday"
-    t.string "marital_status"
-    t.string "gender"
-    t.string "username", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "sales", "members", column: "buyer_id"

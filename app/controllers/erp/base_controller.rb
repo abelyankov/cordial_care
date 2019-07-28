@@ -3,7 +3,7 @@ module Erp
 
     layout "erp"
 
-    before_action :authenticate_user!
+    before_action :authenticate_member!
 
 
     def after_sign_in_path_for(resource)
