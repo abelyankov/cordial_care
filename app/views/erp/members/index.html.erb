@@ -1,0 +1,20 @@
+<h1>
+  Members
+  <a class="ui right floated blue small button" style=" color: white"
+     href="<%= new_member_path %>"
+     id="new-question-button">
+    Add member
+  </a>
+</h1>
+<table class="ui celled table">
+  <thead>
+  <tr style="text-align: center">
+    <th>Membership Id</th>
+    <th>Member Info</th>
+    <th>Weekly Commission</th>
+    <th>Monthly Commission</th>
+    <th>Total Commission</th>
+  </tr>
+  </thead>
+  <%= render partial:'erp/members/member', collection: @members, locals: { list: true } %>
+</table>

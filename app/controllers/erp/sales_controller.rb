@@ -49,6 +49,9 @@ module Erp
       else
         @sale.buyer_id = params[:sale][:buyer_id]
       end
+      if @sale.seller_id == @sale.buyer_id
+        @sale.sale_type_id = SaleType.find_by(name: "Self purchasing").id
+      end
       seller = Member.find_by(id: params[:sale][:seller_id])
       @sale.team = seller.team
       @sale.sale_date = params[:sale][:sale_date]
