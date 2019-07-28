@@ -8,16 +8,18 @@ ActiveAdmin.register Member do
   index do
     selectable_column
     id_column
+    column :membership_id
     column :first_name
     column :last_name
+    column :username
     column :role
     column :team
     actions
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs do
-      f.input :username
       f.input :first_name
       f.input :last_name
       f.input :birthday, start_year: 1950
@@ -28,6 +30,7 @@ ActiveAdmin.register Member do
       f.input :gender, as: :select2, collection: ['Male', 'Female']
       f.input :marital_status, as: :select2, collection: ['Married', 'Widowed', 'Separated', 'Divorced', 'Single']
       f.input :address
+      f.input :username
       f.input :password
       f.input :password_confirmation
     end
