@@ -9,7 +9,7 @@
     <br/>
     Seller: <%= sale.seller.full_name %> <div class="ui orange mini label">Commission:<%= tenge sale.member_profit %></div>
     <% if sale.type.name != "Self purchasing" %>
-      Buyer: <%= sale.buyer.full_name %>
+      <br/>Buyer: <%= sale.buyer.full_name %>
     <% end %>
   </td>
   <td>

@@ -6,6 +6,7 @@ class Sale < ApplicationRecord
   belongs_to :team, inverse_of: :sales
   belongs_to :seller, class_name: "Member"
   belongs_to :buyer, class_name: "Member"
+  accepts_nested_attributes_for :buyer
 
   validates_presence_of :status, :seller, :buyer, :type
 

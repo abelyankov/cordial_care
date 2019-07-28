@@ -1,6 +1,8 @@
 <%= form_for sale, html: { class: "ui form grid" } do |f| %>
 
   <%= f.hidden_field :team_id, required: true %>
+  <%= f.hidden_field :sale_type_id, requeired: true %>
+
 
   <% if sale.errors.any? %>
     <div class="ui negative message">
@@ -17,19 +19,48 @@
 
   <div class="row">
     <div class="twelve wide column field">
-      <div class="field">
-        <label>Type of sale</label>
-        <%= f.select :sale_type_id, SaleType.all.map{|p| [p.name, p.id]} %>
-      </div>
-      <label>Seller</label>
+      <h3>Seller</h3>
       <%= f.select :seller_id, Member.all.map{|p| [p.full_name, p.id]} %>
-      <label>Buyer</label>
-      <%= f.select :buyer_id, Member.all.map{|p| [p.full_name, p.id]} %>
+      <% if params[:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id %>
+      <% elsif params[:sale_type_id].to_i == SaleType.find_by(name: "Membership new").id %>
+        <%=f.fields_for :member do |member| %>
+          <h3>New Buyer</h3>
+          <label>First name</label>
+          <%= member.text_field :first_name, required: true %>
+          <label>Last name</label>
+          <%= member.text_field :last_name, required: true %>
+          <label>Birthday</label>
+          <%= member3.date_field :birthday, placeholder: "Birthday", :order => [:day, :month, :year], required: true %>
+          <label>Email</label>
+          <%= member.text_field :email, required: true %>
+          <label>Phone number</label>
+          <%= member.text_field :phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
+          <label>Member Role</label>
+          <%= member.select :member_role_id, MemberRole.all.map{ |role| [role.name, role.id]}, required: true %>
+          <label>Team</label>
+          <%= member.select :team_id, Team.all.map{ |entity| [entity.name, entity.id] }, required: true %>
+          <label>Gender</label>
+          <%= member.select :gender, ["Male", "Female"], required: true %>
+          <label>Marital statys</label>
+          <%= member.select :marital_status, ['Married', 'Widowed', 'Separated', 'Divorced', 'Single'] %>
+          <label>Address</label>
+          <%= member.text_field :address %>
+          <label>Username</label>
+          <%= member.text_field :username, required: true %>
+          <label>Password</label>
+          <%= member.password_field :password, required: true %>
+          <label>Password Confirmation</label>
+          <%= member.password_field :password_confirmation, required: true %>
+        <% end %>
+      <% else %>
+        <h3>Buyer</h3>
+        <%= f.select :buyer_id, Member.all.map{|p| [p.full_name, p.id]}, required: true %>
+      <% end %>
     </div>
     <div class="four wide column">
       <div class="field">
-        <label>Sale Date</label>
-            <%= f.date_field :sale_date, placeholder: "Дата/Время", :order => [:day, :month, :year], required: true %>
+        <h3>Sale Date</h3>
+            <%= f.date_field :sale_date, placeholder: "Date of sale", :order => [:day, :month, :year], required: true %>
       </div>
     </div>
   </div>
@@ -38,13 +69,13 @@
     <div class="twelve wide column">
       <div class="field products">
         <div class="item">
-          <label>Product</label>
+          <h3>Product</h3>
           <select class="select1" name="sale[items][0][product_id]">
             <% Product.all.each do |product| %>
               <option value="<%=product.id %>"><%=product.name_eng %></option>
             <% end %>
           </select>
-          <label>Quantity</label>
+          <h3>Quantity</h3>
           <input type="text" name="sale[items][0][quantity]" placeholder="quantity of product" required="required"/>
         </div>
       </div>
@@ -62,14 +93,14 @@
       $(document).ready(function(){
           $(".add").click(function () {
               var item = $(
-                  '<div class="item">' +
-                  '<label>Product</label>' +
+                  '<div class="item" style="margin-top: 10px">' +
+                  '<h3>Product</h3>' +
                   '<select class="select1" name="sale[items][1][product_id]">' +
                   '<% Product.all.each do |product| %>' +
                   '<option value="<%=product.id %>">' + '<%=product.name_eng %></option>'+
                   '<% end %>' +
                   '</select>' +
-                  '<label>Quantity</label>' +
+                  '<h3>Quantity</h3>' +
                   '<input type="text" name="sale[items][1][quantity]" placeholder="quantity of product" required="required"/>' +
                   '<a class="remove">✕</a>'+
                   '</div>'

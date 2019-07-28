@@ -9,16 +9,43 @@ module Erp
       @sale = Sale.find(params[:id])
     end
 
+    def select_type
+      @sale_types = SaleType.all
+    end
+
     def new
       @sale = Sale.new
+      @sale.sale_type_id = params[:sale_type_id]
+      # @sale.buyer.build
     end
 
     def create
       @sale = Sale.new(permitted_params)
       @sale.status = :new
+      @sale.sale_type_id = params[:sale][:sale_type_id]
       @sale.seller_id = params[:sale][:seller_id]
       if params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id
         @sale.buyer_id = params[:sale][:seller_id]
+      elsif params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "Membership new").id
+        b = Member.new(username: params[:sale][:member][:username],
+                       first_name: params[:sale][:member][:first_name],
+                       last_name: params[:sale][:member][:last_name],
+                       email: params[:sale][:member][:email],
+                       birthday: params[:sale][:member][:birthday],
+                       phone_number: params[:sale][:member][:phone_number],
+                       member_role_id: params[:sale][:member][:member_role_id],
+                       team_id: params[:sale][:member][:team_id],
+                       gender: params[:sale][:member][:gender],
+                       marital_status: params[:sale][:member][:marital_status],
+                       address: params[:sale][:member][:address],
+                       password: params[:sale][:member][:password],
+                       password_confirmation: params[:sale][:member][:password_confirmation])
+        b.generate_membership_id
+        if b.save
+          @sale.buyer_id = b.id
+        else
+         p b.errors
+        end
       else
         @sale.buyer_id = params[:sale][:buyer_id]
       end
@@ -52,8 +79,8 @@ module Erp
       if @sale.save
         redirect_to sales_path, notice: "Sale ##{@sale.id} created"
       else
-        @sale.errors
-        render "new"
+
+        render "new", notice: "#{@sale.errors}"
       end
     end
 
@@ -64,7 +91,8 @@ module Erp
     private
 
     def permitted_params
-      params.require(:sale).permit(:sale_type_id, :quantity, product_ids: [])
+      params.require(:sale).permit(:quantity,
+                                   product_ids: [])
     end
   end
 end

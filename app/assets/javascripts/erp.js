@@ -4,6 +4,9 @@
 //= require turbolinks
 //= require select2
 //= require semantic-ui/dropdown
+//= require jquery-mask-plugin
+
+$.jMaskGlobals.watchDataMask = true;
 
 $.ajaxSetup({
     headers: {

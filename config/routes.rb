@@ -2,16 +2,21 @@ Rails.application.routes.draw do
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  devise_for :members, skip: [:sessions]
+  devise_for :members, skip: [:sessions, :registrations]
   devise_scope :member do
     get 'erp/login', to: 'devise/sessions#new', as: :new_member_session
     post 'erp/login', to: 'devise/sessions#create', as: :member_session
     delete 'erp/logout', to: 'devise/sessions#destroy', as: :destroy_member_session
+    get 'erp/members/edit' => 'devise/registrations#edit', as: :edit_member_registration
+    put 'erp/members' => 'devise/registrations#update', as: :member_registration
   end
 
   scope module: 'erp', path: 'erp' do
     root 'home#index'
-    resources :sales
+    get '/sales/type' => 'sales#select_type'
+    get '/sales/type/:sale_type_id/new' => 'sales#new', as: :sales_type_new
+    resources :sales do
+    end
     resources :members
     resources :profile
   end

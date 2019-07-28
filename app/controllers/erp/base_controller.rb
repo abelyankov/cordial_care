@@ -1,6 +1,6 @@
 module Erp
   class BaseController < ApplicationController
-
+    require 'date_extensions'
     layout "erp"
 
     before_action :authenticate_member!
