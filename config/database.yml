@@ -29,5 +29,5 @@ production:
   <<: *default
   host: 167.71.32.213
   database: cordial_care
-  username: postgres
-  password: postgres
+  username: cc_db
+  password: 0efedb9
