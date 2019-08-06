@@ -6,9 +6,7 @@ require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
 require 'capistrano/puma'
-# require 'capistrano/delayed_job'
-require "whenever/capistrano"
-# require 'capistrano/sidekiq'
+
 install_plugin Capistrano::Puma
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
