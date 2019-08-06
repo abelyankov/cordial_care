@@ -6,6 +6,7 @@ ActiveAdmin.register Location do
       f.input :city
       f.input :country, as: :string
       f.input :code_country, as: :string
+      f.input :code_city, as: :string
     end
     f.actions
   end

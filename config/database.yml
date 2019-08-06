@@ -16,13 +16,6 @@ development:
   username: postgres
   password: postgres
 
-#staging:
-#  <<: *default
-#  host: 68.183.221.36
-#  database: pbo
-#  username: pboqa
-#  password: 0efedb9
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.

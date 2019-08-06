@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   scope module: 'erp', path: 'erp' do
-    root 'home#index'
+    root 'sales#index'
     get '/sales/type' => 'sales#select_type'
     get '/sales/type/:sale_type_id/new' => 'sales#new', as: :sales_type_new
     resources :sales do

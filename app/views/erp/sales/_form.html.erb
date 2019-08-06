@@ -20,7 +20,7 @@
   <div class="row">
     <div class="twelve wide column field">
       <h3>Seller</h3>
-      <%= f.select :seller_id, Member.all.map{|p| [p.full_name, p.id]} %>
+      <%= f.select :seller_id, Member.all.map{|p| [p.membership_id, p.id]} %>
       <% if params[:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id %>
       <% elsif params[:sale_type_id].to_i == SaleType.find_by(name: "Membership new").id %>
         <%=f.fields_for :member do |member| %>
@@ -54,7 +54,7 @@
         <% end %>
       <% else %>
         <h3>Buyer</h3>
-        <%= f.select :buyer_id, Member.all.map{|p| [p.full_name, p.id]}, required: true %>
+        <%= f.select :buyer_id, Member.all.map{|p| [p.membership_id, p.id]}, required: true %>
       <% end %>
     </div>
     <div class="four wide column">

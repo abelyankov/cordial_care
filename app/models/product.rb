@@ -9,23 +9,27 @@ class Product < ApplicationRecord
   private
 
   def generate_product_code
-    self.category.parent.descendants.each_with_index do |a, v|
-      if a.name == self.category.name
-        @index = v+1
-      end
-    end
 
-    if Product.all.count == 0
-      digits = 0
+    if self.category.has_parent?
+      self.category.parent.descendants.each_with_index do |a, v|
+        if a.name == self.category.name
+          @index = v+1
+        end
+      end
     else
-      digits = Product.all.count + 1
+      @index = 0
     end
 
     if Product.find_by(code: self.code).present?
-      digits = Product.all.count
+      self.code = self.code
+    else
+      if Product.all.count == 0
+        digits = 0
+      else
+        digits = Product.all.count + 1
+      end
+      code = self.category.short_name + "#{@index }"+ "%.3i" %digits
+      self.code = code
     end
-
-    code = self.category.short_name + "#{@index}" +"%.3i" %digits
-    self.code = code
   end
 end

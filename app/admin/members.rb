@@ -1,4 +1,5 @@
 ActiveAdmin.register Member do
+
   permit_params :username, :email,
                 :first_name, :last_name,
                 :birthday, :address, :marital_status,

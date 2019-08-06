@@ -1,10 +1,12 @@
 <h1>
   Sales
+  <% if current_member.is_team_manager? || current_member.is_junior_director? || current_member.is_senior_director? %>
   <a class="ui right floated blue small button" style=" color: white"
      href="<%= sales_type_path %>"
      id="new-question-button">
     Add sale
   </a>
+  <% end %>
 
 </h1>
 

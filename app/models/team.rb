@@ -8,6 +8,6 @@ class Team < ApplicationRecord
 
   def generate_team_name
     count =  Team.all.where(location: self.location).count
-    self.name = "#{self.location.code_country} #{self.location.city } ##{count+1}"
+    self.name = "#{self.location.code_country}#{self.location.code_city}##{count+1}"
   end
 end
