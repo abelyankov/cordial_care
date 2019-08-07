@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
