@@ -12,7 +12,7 @@
     <% end %>
   </td>
   <td>
-    Full Name: <%=  member.full_name %>;
+    Full Name: <%= member.full_name %>;
     <div class="ui red mini label"> Team:<%= member.team.name %></div>
     <% if Member.find_by(team_id: member.team.id, member_role_id: MemberRole.find_by(name: "Beauty Consultant Leader").id).present? %>
       <div class="ui orange mini label">
