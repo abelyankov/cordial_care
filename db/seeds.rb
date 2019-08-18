@@ -89,9 +89,8 @@ end
 
 ## Sales types
 SaleType.find_or_create_by(name: "Self purchasing")
-SaleType.find_or_create_by(name: "Membership new")
-SaleType.find_or_create_by(name: "Membership old")
-SaleType.find_or_create_by(name: "Resell")
+SaleType.find_or_create_by(name: "New member")
+SaleType.find_or_create_by(name: "Non-member")
 
 ## Brands
 es = Brand.find_or_create_by(name: "ESROOM")
@@ -99,8 +98,8 @@ well = Brand.find_or_create_by(name: "WELL NATURE")
 
 ## Products
 category = ProductCategory.find_by(name: "Beauty care")
-Product.find_or_create_by(name_eng: "Recovery All in One Solution",
-                          membership_price_kzt: 20000,
+Product.find_or_create_by(name: "Recovery All in One Solution",
+                          sales_price: 20000,
                           brand_id: es.id,
                           category: category,
                           unit_price: 30000,
@@ -108,8 +107,8 @@ Product.find_or_create_by(name_eng: "Recovery All in One Solution",
                           basic_commission: 25,
                           total_commission: 50)
 
-Product.find_or_create_by(name_eng: "Recovery Memory Cream",
-                          membership_price_kzt: 25000,
+Product.find_or_create_by(name: "Recovery Memory Cream",
+                          sales_price: 25000,
                           category: category,
                           brand_id: es.id,
                           unit_price: 40000,
@@ -117,128 +116,128 @@ Product.find_or_create_by(name_eng: "Recovery Memory Cream",
                           basic_commission: 25,
                           total_commission: 53)
 
-Product.find_or_create_by(name_eng: "Recovery Wrinkle Set",
+Product.find_or_create_by(name: "Recovery Wrinkle Set",
                           brand_id: es.id,
                           category: category,
                           unit_price: 35000,
-                          membership_price_kzt: 30000,
+                          sales_price: 30000,
                           unit_type: '25ml',
                           basic_commission: 25,
                           total_commission: 42)
 
-Product.find_or_create_by(name_eng: "Recovery Relaxing Mask",
+Product.find_or_create_by(name: "Recovery Relaxing Mask",
                           brand_id: es.id,
                           category: category,
                           unit_price: 12000,
-                          membership_price_kzt: 10000,
+                          sales_price: 10000,
                           unit_type: '25ml',
                           basic_commission: 20,
                           total_commission: 40)
 
-Product.find_or_create_by(name_eng: "Recovery Nourishing Mask",
+Product.find_or_create_by(name: "Recovery Nourishing Mask",
                           brand_id: es.id,
                           category: category,
                           unit_price: 12000,
-                          membership_price_kzt: 10000,
+                          sales_price: 10000,
                           unit_type: '25ml',
                           basic_commission: 20,
                           total_commission: 40)
 
-Product.find_or_create_by(name_eng: "Recovery Perfect Cover Cushion (no.21)",
+Product.find_or_create_by(name: "Recovery Perfect Cover Cushion (no.21)",
                           brand_id: es.id,
                           category: category,
                           unit_price: 18000,
-                          membership_price_kzt: 15000,
+                          sales_price: 15000,
                           basic_commission: 20,
                           total_commission: 40,
                           unit_type: '15g')
 
-Product.find_or_create_by(name_eng: "Recovery Perfect Cover Cushion (no.23)",
+Product.find_or_create_by(name: "Recovery Perfect Cover Cushion (no.23)",
                           brand_id: es.id,
                           category: category,
                           unit_price: 18000,
-                          membership_price_kzt: 15000,
+                          sales_price: 15000,
                           basic_commission: 20,
                           total_commission: 40,
                           unit_type: '15g')
 
-Product.find_or_create_by(name_eng: "Moisture Speed Mist Toner",
+Product.find_or_create_by(name: "Moisture Speed Mist Toner",
                           brand_id: well.id,
                           category: category,
                           unit_price: 10000,
-                          membership_price_kzt: 8000,
+                          sales_price: 8000,
                           unit_type: '155ml',
                           basic_commission: 20,
                           total_commission: 45)
 
-Product.find_or_create_by(name_eng: "Moisture Seed Barrier Emulsion",
+Product.find_or_create_by(name: "Moisture Seed Barrier Emulsion",
                           brand_id: well.id,
                           category: category,
                           unit_price: 10000,
-                          membership_price_kzt: 8000,
+                          sales_price: 8000,
                           unit_type: '155ml',
                           basic_commission: 20,
                           total_commission: 45)
 
-Product.find_or_create_by(name_eng: "Moisture Seed Capsule Essence",
+Product.find_or_create_by(name: "Moisture Seed Capsule Essence",
                           brand_id: well.id,
                           category: category,
                           unit_price: 11000,
-                          membership_price_kzt: 9000,
+                          sales_price: 9000,
                           unit_type: '50ml',
                           basic_commission: 20,
                           total_commission: 42)
 
-Product.find_or_create_by(name_eng: "Moisture Seed Capsule Cream",
+Product.find_or_create_by(name: "Moisture Seed Capsule Cream",
                           brand_id: well.id,
                           category: category,
                           unit_price: 11000,
-                          membership_price_kzt: 9000,
+                          sales_price: 9000,
                           unit_type: '50ml',
                           basic_commission: 20,
                           total_commission: 42)
 
-Product.find_or_create_by(name_eng: "Moisture Seed Safety Sunblock",
+Product.find_or_create_by(name: "Moisture Seed Safety Sunblock",
                           brand_id: well.id,
                           category: category,
                           unit_price: 8000,
-                          membership_price_kzt: 6500,
+                          sales_price: 6500,
                           unit_type: '40ml',
                           basic_commission: 20,
                           total_commission: 43)
 
-Product.find_or_create_by(name_eng: "Moisture Deep Cleansing Oil",
+Product.find_or_create_by(name: "Moisture Deep Cleansing Oil",
                           brand_id: well.id,
                           category: category,
                           unit_price: 10000,
-                          membership_price_kzt: 8000,
+                          sales_price: 8000,
                           unit_type: '170ml',
                           basic_commission: 20,
                           total_commission: 45)
 
-Product.find_or_create_by(name_eng: "Moisture Deep Cleansing Water",
+Product.find_or_create_by(name: "Moisture Deep Cleansing Water",
                           brand_id: well.id,
                           category: category,
                           unit_price: 8000,
-                          membership_price_kzt: 6500,
+                          sales_price: 6500,
                           unit_type: '300ml',
                           basic_commission: 20,
                           total_commission: 43)
 
-Product.find_or_create_by(name_eng: "Moisture Whipping Cleansing Foam",
+Product.find_or_create_by(name: "Moisture Whipping Cleansing Foam",
                           brand_id: well.id,
                           category: category,
                           unit_price: 6500,
-                          membership_price_kzt: 5000,
+                          sales_price: 5000,
                           unit_type: '150ml',
                           basic_commission: 20,
                           total_commission: 50)
 
-Product.find_or_create_by(name_eng: "Moisture Lip Care Set",
+Product.find_or_create_by(name: "Moisture Lip Care Set",
                           brand_id: well.id,
                           category: category,
                           unit_price: 7000,
-                          membership_price_kzt: 5500,
+                          sales_price: 5500,
                           unit_type: '8g',
                           basic_commission: 20,
                           total_commission: 47)

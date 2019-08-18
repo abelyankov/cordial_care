@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_112625) do
+ActiveRecord::Schema.define(version: 2019_08_18_133432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,13 +64,13 @@ ActiveRecord::Schema.define(version: 2019_07_28_112625) do
     t.date "birthday"
     t.string "marital_status"
     t.string "gender"
-    t.bigint "member_role_id", null: false
+    t.string "member_role_id"
     t.bigint "team_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "username", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "username"
+    t.string "encrypted_password", default: ""
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
@@ -98,17 +98,10 @@ ActiveRecord::Schema.define(version: 2019_07_28_112625) do
 
   create_table "products", force: :cascade do |t|
     t.string "code", null: false
-    t.string "name_eng", null: false
-    t.string "name_rus"
+    t.string "name", null: false
     t.bigint "product_category_id"
     t.bigint "brand_id"
-    t.integer "membership_price_kzt"
-    t.integer "purchasing_price_kzt"
-    t.date "price_period"
-    t.string "freight"
-    t.integer "import_duty"
-    t.integer "vat"
-    t.string "handling_charge"
+    t.integer "sales_price"
     t.string "unit_type"
     t.integer "unit_price"
     t.integer "basic_commission"

@@ -17,6 +17,11 @@ module Erp
     config.autoload_paths += [config.root.join('app')]
 
     config.filter_parameters << :password
+    Raven.configure do |config|
+      config.environments = %w(production)
+      config.dsn = 'https://236505b969b649a3bdced6351ec50ae9:9bb3460eeadb43a280e0d99efbb0dfc0@sentry.io/1533773'
+      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+    end
   end
 end
 

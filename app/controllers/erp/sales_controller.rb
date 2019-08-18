@@ -16,7 +16,6 @@ module Erp
     def new
       @sale = Sale.new
       @sale.sale_type_id = params[:sale_type_id]
-      # @sale.buyer.build
     end
 
     def create
