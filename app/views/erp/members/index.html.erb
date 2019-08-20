@@ -8,6 +8,20 @@
     </a>
   <% end %>
 </h1>
+
+<%= form_tag members_path, method: 'get' do %>
+
+  <%= select_tag :membership_id, options_for_select([["All membership ids", 'all']] +  Member.all.map{|p| [p.membership_id]},
+                                         params[:membership_id]),
+                 onchange: "this.form.submit();", class: "select"%>
+  <%= select_tag :member_role_id, options_for_select([["All sellers", 'all']] +  MemberRole.all.map{|p| [p.name, p.id]},
+                                                params[:member_role_id]),
+                 onchange: "this.form.submit();", class: "select"%>
+  <%= select_tag :team_id, options_for_select([["All teams", 'all']] +  Team.all.map{|p| [p.name, p.id]},
+                                              params[:team_id]),
+                 onchange: "this.form.submit();", class: "select"%><br/>
+<% end %>
+
 <table class="ui celled table">
   <thead>
   <tr style="text-align: center">

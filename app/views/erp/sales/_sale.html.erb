@@ -36,9 +36,17 @@
     <%= tenge sale.sales_products.sum(:amount) - sale.member_profit %>
   </td>
   <td style="text-align: center">
-    <div class="ui mini <%= sale.status.color %> label">
-      <%= sale.status.name %>
+    <div class="ui tiny <%= sale.status.color %> label">
+      <%= sale.status.name %><br/>
+      <% if sale.status == "updated" %>
+        <%= l sale.updated_at.in_time_zone("Asia/Almaty"), format: :short %>
+      <% else %>
+        <%= l sale.created_at.in_time_zone("Asia/Almaty"), format: :short %>
+      <% end %>
     </div>
+  </td>
+  <td style="text-align: center">
+    <%= l sale.sale_date, format: :long%>
   </td>
   <% if current_member.is_team_manager? || current_member.is_junior_director? || current_member.is_senior_director? %>
     <td style="text-align: center">

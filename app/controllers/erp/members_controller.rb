@@ -2,6 +2,16 @@ module Erp
   class MembersController < BaseController
     def index
       @members = Member.all
+
+      unless['', 'all'].include? params.fetch(:membership_id, "all")
+        @members = @members.where(membership_id: params[:membership_id])
+      end
+      unless ['', 'all'].include? params.fetch(:member_role_id, "all")
+        @members = @members.where(member_role_id: params[:member_role_id])
+      end
+      unless ['', 'all'].include? params.fetch(:team_id, "all")
+        @members = @members.where(team_id: params[:team_id])
+      end
     end
 
     def new

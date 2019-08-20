@@ -3,6 +3,18 @@ module Erp
     require 'date_extensions'
     def index
       @sales = Sale.all
+      unless['', 'all'].include? params.fetch(:id, "all")
+        @sales = @sales.where(id: params[:id])
+      end
+      unless ['', 'all'].include? params.fetch(:seller_id, "all")
+        @sales = @sales.where(seller_id: params[:seller_id])
+      end
+      unless ['', 'all'].include? params.fetch(:team_id, "all")
+        @sales = @sales.where(team_id: params[:team_id])
+      end
+      unless ['', 'all'].include? params.fetch(:sale_type_id, "all")
+        @sales = @sales.where(sale_type_id: params[:sale_type_id])
+      end
     end
 
     def show
