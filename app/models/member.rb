@@ -5,7 +5,7 @@ class Member < ApplicationRecord
   belongs_to :role, class_name: 'MemberRole', foreign_key: 'member_role_id'
   belongs_to :team
   has_many :sellers, class_name: "Sale", foreign_key: "seller_id"
-  has_many :buyers, class_name: "Sale", foreign_key: "buyer_id"
+  has_many :buyers,as: :buyer, class_name: "Sale", foreign_key: "buyer_id"
 
   before_save :check_team_leaders
   before_validation :generate_membership_id

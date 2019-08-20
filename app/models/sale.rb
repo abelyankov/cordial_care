@@ -5,8 +5,7 @@ class Sale < ApplicationRecord
   has_many :sales_products, as: :productable, dependent: :destroy
   belongs_to :team, inverse_of: :sales
   belongs_to :seller, class_name: "Member"
-  belongs_to :buyer, class_name: "Member"
-  accepts_nested_attributes_for :buyer
+  belongs_to :buyer, polymorphic: true
 
   validates_presence_of :status, :seller, :buyer, :type
 

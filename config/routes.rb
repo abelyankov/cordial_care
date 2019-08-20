@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     root 'sales#index'
     get '/sales/type' => 'sales#select_type'
     get '/sales/type/:sale_type_id/new' => 'sales#new', as: :sales_type_new
+    get '/sales/type/:sale_type_id/sale/:id/edit' => 'sales#edit', as: :sales_type_edit
     resources :sales do
     end
     resources :members
     resources :profile
+    resources :non_members
   end
 end

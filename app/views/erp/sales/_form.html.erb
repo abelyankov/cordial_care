@@ -22,39 +22,92 @@
       <h3>Seller</h3>
       <%= f.select :seller_id, Member.all.map{|p| [p.membership_id, p.id]} %>
       <% if params[:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id %>
-      <% elsif params[:sale_type_id].to_i == SaleType.find_by(name: "Membership new").id %>
-        <%=f.fields_for :member do |member| %>
-          <h3>New Buyer</h3>
-          <label>First name</label>
-          <%= member.text_field :first_name, required: true %>
-          <label>Last name</label>
-          <%= member.text_field :last_name, required: true %>
-          <label>Birthday</label>
-          <%= member.date_field :birthday, placeholder: "Birthday", :order => [:day, :month, :year], required: true %>
-          <label>Email</label>
-          <%= member.text_field :email, required: true %>
-          <label>Phone number</label>
-          <%= member.text_field :phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
-          <label>Member Role</label>
-          <%= member.select :member_role_id, MemberRole.all.map{ |role| [role.name, role.id]}, required: true %>
-          <label>Team</label>
-          <%= member.select :team_id, Team.all.map{ |entity| [entity.name, entity.id] }, required: true %>
-          <label>Gender</label>
-          <%= member.select :gender, ["Male", "Female"], required: true %>
-          <label>Marital statys</label>
-          <%= member.select :marital_status, ['Married', 'Widowed', 'Separated', 'Divorced', 'Single'] %>
-          <label>Address</label>
-          <%= member.text_field :address %>
-          <label>Username</label>
-          <%= member.text_field :username, required: true %>
-          <label>Password</label>
-          <%= member.password_field :password, required: true %>
-          <label>Password Confirmation</label>
-          <%= member.password_field :password_confirmation, required: true %>
+      <% elsif params[:sale_type_id].to_i == SaleType.find_by(name: "New member").id %>
+        <% if sale.buyer.present? && sale.buyer_type == "Member" %>
+          <%=f.fields_for :member do |member| %>
+            <h3>New Buyer</h3>
+            <label>First name</label>
+            <%= member.text_field :first_name, value: sale.buyer.first_name, required: true %>
+            <label>Last name</label>
+            <%= member.text_field :last_name, value: sale.buyer.last_name, required: true %>
+            <label>Birthday</label>
+            <%= member.date_field :birthday, value: sale.buyer.birthday, placeholder: "Birthday", :order => [:day, :month, :year], required: true %>
+            <label>Email</label>
+            <%= member.text_field :email,value: sale.buyer.email, required: true %>
+            <label>Phone number</label>
+            <%= member.text_field :phone_number, value: sale.buyer.phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
+            <label>Member Role</label>
+            <%= member.select :member_role_id, MemberRole.all.map{ |role| [role.name, role.id]}, value: sale.buyer.member_role_id, required: true %>
+            <label>Team</label>
+            <%= member.select :team_id, Team.all.map{ |entity| [entity.name, entity.id] }, value: sale.buyer.team,required: true %>
+            <label>Gender</label>
+            <%= member.select :gender, ["Male", "Female"], value: sale.buyer.gender, required: true %>
+            <label>Marital statys</label>
+            <%= member.select :marital_status, ['Married', 'Widowed', 'Separated', 'Divorced', 'Single'], value: sale.buyer.marital_status %>
+            <label>Address</label>
+            <%= member.text_field :address, value: sale.buyer.address %>
+            <label>Username</label>
+            <%= member.text_field :username, value: sale.buyer.username, required: true %>
+            <label>Password</label>
+            <%= member.password_field :password, required: true %>
+            <label>Password Confirmation</label>
+            <%= member.password_field :password_confirmation, required: true %>
+          <% end %>
+        <% else %>
+          <%=f.fields_for :member do |member| %>
+            <h3>New Buyer</h3>
+            <label>First name</label>
+            <%= member.text_field :first_name, required: true %>
+            <label>Last name</label>
+            <%= member.text_field :last_name, required: true %>
+            <label>Birthday</label>
+            <%= member.date_field :birthday, placeholder: "Birthday", :order => [:day, :month, :year], required: true %>
+            <label>Email</label>
+            <%= member.text_field :email, required: true %>
+            <label>Phone number</label>
+            <%= member.text_field :phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
+            <label>Member Role</label>
+            <%= member.select :member_role_id, MemberRole.all.map{ |role| [role.name, role.id]}, required: true %>
+            <label>Team</label>
+            <%= member.select :team_id, Team.all.map{ |entity| [entity.name, entity.id] }, required: true %>
+            <label>Gender</label>
+            <%= member.select :gender, ["Male", "Female"], required: true %>
+            <label>Marital statys</label>
+            <%= member.select :marital_status, ['Married', 'Widowed', 'Separated', 'Divorced', 'Single'] %>
+            <label>Address</label>
+            <%= member.text_field :address %>
+            <label>Username</label>
+            <%= member.text_field :username, required: true %>
+            <label>Password</label>
+            <%= member.password_field :password, required: true %>
+            <label>Password Confirmation</label>
+            <%= member.password_field :password_confirmation, required: true %>
+          <% end %>
         <% end %>
+        
       <% else %>
-        <h3>Buyer</h3>
-        <%= f.select :buyer_id, Member.all.map{|p| [p.membership_id, p.id]}, required: true %>
+        <% if sale.buyer.present? &&  sale.buyer_type == 'NonMember' %>
+          <%=f.fields_for :non_member do |non_member| %>
+            <h3>New Buyer (without membership)</h3>
+            <label>First name</label>
+            <%= non_member.text_field :first_name, value: sale.buyer.first_name, required: true %>
+            <label>Last name</label>
+            <%= non_member.text_field :last_name, value: sale.buyer.last_name, required: true %>
+            <label>Phone number</label>
+            <%= non_member.text_field :phone_number, value: sale.buyer.phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
+          <% end %>
+        <% else %>
+          <%=f.fields_for :non_member do |non_member| %>
+            <h3>New Buyer (without membership)</h3>
+            <label>First name</label>
+            <%= non_member.text_field :first_name, required: true %>
+            <label>Last name</label>
+            <%= non_member.text_field :last_name, required: true %>
+            <label>Phone number</label>
+            <%= non_member.text_field :phone_number,  data: { mask: '+7 (000) 000-00-00' }, required: true %>
+          <% end %>
+        <% end %>
+
       <% end %>
     </div>
     <div class="four wide column">
@@ -72,7 +125,7 @@
           <h3>Product</h3>
           <select class="select1" name="sale[items][0][product_id]">
             <% Product.all.each do |product| %>
-              <option value="<%=product.id %>"><%=product.name_eng %></option>
+              <option value="<%=product.id %>"><%=product.name%></option>
             <% end %>
           </select>
           <h3>Quantity</h3>
@@ -86,7 +139,12 @@
     <div class="sixteen wide column">
       <div class="ui divider"></div>
       <input type='button' class="ui blue button add" value='Add product'>
-      <%= f.submit "Create sale", class: "ui blue button" %>
+      <% if sale.new_record? %>
+        <%= f.submit "Create sale", class: "ui blue button" %>
+      <% else %>
+        <%= f.submit "Update sale", class: "ui blue button" %>
+      <% end %>
+      
     </div>
   </div>
   <script>
@@ -97,7 +155,7 @@
                   '<h3>Product</h3>' +
                   '<select class="select1" name="sale[items][1][product_id]">' +
                   '<% Product.all.each do |product| %>' +
-                  '<option value="<%=product.id %>">' + '<%=product.name_eng %></option>'+
+                  '<option value="<%=product.id %>">' + '<%=product.name %></option>'+
                   '<% end %>' +
                   '</select>' +
                   '<h3>Quantity</h3>' +

@@ -65,6 +65,10 @@
     <th>Products</th>
     <th>Total</th>
     <th>Profit</th>
+    <th>Status</th>
+    <% if current_member.is_team_manager? || current_member.is_junior_director? || current_member.is_senior_director? %>
+      <th>Actions</th>
+    <% end %>
   </tr>
   </thead>
 <%= render partial:'erp/sales/sale', collection: @sales, locals: { list: true } %>

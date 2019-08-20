@@ -1,7 +1,8 @@
 class SaleStatus
   ALL = {
       new:         { name: "New",    color: "blue", url: "new" },
-      accepted: { name: "Accepted", color: "green", url: "accepted" }
+      accepted: { name: "Accepted", color: "green", url: "accepted" },
+      updated: { name: "Updated", color: "red", url: "updated" }
   }
   def self.all
     ALL.keys.map{ |s| SaleStatus.new(s) }

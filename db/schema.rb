@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_18_133432) do
+ActiveRecord::Schema.define(version: 2019_08_20_151247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 2019_08_18_133432) do
     t.index ["username"], name: "index_members_on_username", unique: true
   end
 
+  create_table "non_members", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_categories", force: :cascade do |t|
     t.string "name", null: false
     t.string "ancestry"
@@ -122,12 +130,12 @@ ActiveRecord::Schema.define(version: 2019_08_18_133432) do
     t.bigint "sale_type_id"
     t.date "sale_date"
     t.bigint "seller_id"
-    t.bigint "buyer_id"
     t.bigint "team_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyer_id"], name: "index_sales_on_buyer_id"
+    t.integer "buyer_id"
+    t.string "buyer_type"
     t.index ["sale_type_id"], name: "index_sales_on_sale_type_id"
     t.index ["seller_id"], name: "index_sales_on_seller_id"
     t.index ["team_id"], name: "index_sales_on_team_id"
@@ -154,6 +162,5 @@ ActiveRecord::Schema.define(version: 2019_08_18_133432) do
     t.index ["location_id"], name: "index_teams_on_location_id"
   end
 
-  add_foreign_key "sales", "members", column: "buyer_id"
   add_foreign_key "sales", "members", column: "seller_id"
 end
