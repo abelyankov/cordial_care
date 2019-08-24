@@ -129,6 +129,7 @@
               <th>Product</th>
               <th>Price</th>
               <th>Quantity</th>
+              <th>Total</th>
             </tr>
             </thead>
             <tbody class="products">
@@ -149,10 +150,17 @@
                        required="required" class="quantity"
                   style="border: none"/>
               </td>
+              <td style="text-align: center">
+                <input type="number" name="sale[items][0][total]" value="" class="total-of-product" disabled style="border:none"/>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
+        <h4 style="float: right; display: flex; align-items: center">
+          Total:<input type="number" name="total" value=""
+                       class="total-of-products" disabled style="border:none"/>
+        </h4>
       </div>
     </div>
   </div>
@@ -187,6 +195,9 @@
                   '<td>' +
                   '<input type="text" name="sale[items][1][quantity]" placeholder="quantity of product"required="required" class="quantity" style="border: none"/>' +
                   '</td>' +
+                  '<td style="text-align: center">' +
+                  '<input type="number" name="sale[items][1][total]" value="" class="total-of-product" disabled style="border:none"/>' +
+                  '</td>' +
                   '</tr>');
 
               item.appendTo(".products");
@@ -200,21 +211,71 @@
                   var pricenumber = 0;
                   $(`.select1`).find("option:selected").each(function(index) {
                       if($(this).data("price")){
-                          price += parseInt($(this).data("price"));
+                          price = $(this).data("price");
                           $(`input[name="sale[items][${index}][price]"]`).val(price);
                       }
                   });
+                  var sum = 0;
+                  $(".total-of-product").each(function(){
+                      sum += +$(this).val();
+                  });
+                  $(".total-of-products").val(sum);
+              });
+              $('.quantity').on('change', function(){
+                  $('.quantity').each(function(index){
+                      var unitprice = $(`input[name="sale[items][${index}][price]"]`).val();
+                      var unitnumber = $(`input[name="sale[items][${index}][quantity]"]`).val();
+                      pricenumber = unitprice * unitnumber;
+                      $(`input[name="sale[items][${index}][total]"]`).val(pricenumber);
+
+                  });
+                  var sum = 0;
+                  $(".total-of-product").each(function(){
+                      sum += +$(this).val();
+                  });
+                  $(".total-of-products").val(sum);
               });
           });
 
           function updateNamesOfInputs() {
               $('.products tr').each(function(index) {
                   $(".select1", this).attr('name', `sale[items][${index}][product_id]`);
-                  $("input[type=text]", this).attr('name',`sale[items][${index}][quantity]`);
-                  $("input[type=number]", this).attr('name',`sale[items][${index}][price]`);
+                  $(".quantity", this).attr('name',`sale[items][${index}][quantity]`);
+                  $(".payunit", this).attr('name',`sale[items][${index}][price]`);
+                  $(".total-of-product", this).attr('name',`sale[items][${index}][total]`);
               });
           }
 
+          $('.select1').on("change", function () {
+              var price = 0;
+              var pricenumber = 0;
+              $(`.select1`).find("option:selected").each(function(index) {
+                  if($(this).data("price")){
+                      price = $(this).data("price");
+                      $(`input[name="sale[items][${index}][price]"]`).val(price);
+                  }
+              });
+              var sum = 0;
+              $(".total-of-product").each(function(){
+                  sum += +$(this).val();
+              });
+              $(".total-of-products").val(sum);
+          });
+
+          $('.quantity').on('change', function(){
+              $('.quantity').each(function(index){
+                  var unitprice = $(`input[name="sale[items][${index}][price]"]`).val();
+                  var unitnumber = $(`input[name="sale[items][${index}][quantity]"]`).val();
+                  pricenumber = unitprice * unitnumber;
+                  $(`input[name="sale[items][${index}][total]"]`).val(pricenumber);
+              });
+              var sum = 0;
+              $(".total-of-product").each(function(){
+                  sum += +$(this).val();
+              });
+              $(".total-of-products").val(sum);
+          });
       });
+
   </script>
 <% end %>

@@ -101,6 +101,10 @@ module Erp
       end
     end
 
+    def edit
+      @sale = Sale.find(params[:id])
+    end
+
     def update
       @sale = Sale.find(params[:id])
       @sale.status = :updated
