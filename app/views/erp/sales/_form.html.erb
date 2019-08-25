@@ -18,9 +18,48 @@
   <% end %>
 
   <div class="row">
-    <div class="twelve wide column field">
+    <div class="thirteen wide column field">
       <h3>Seller</h3>
-      <%= f.select :seller_id, Member.all.map{|p| [p.membership_id, p.id]} %>
+      <select class="select_seller" name="seller_id">
+        <option value="">Select seller</option>
+        <% Member.all.each do |member| %>
+          <option value="<%=member.id %>"
+                  data-full_name="<%=member.full_name%>"
+                  data-role="<%= member.role.name %>"
+                  data-team="<%= member.team.name %>"
+                  data-branch="<%= member.team.location.full_location %>">
+            <%=member.membership_id%>
+          </option>
+        <% end %>
+      </select>
+      <div style="display: flex; flex-flow: row;">
+        <input type="text" class="full_name" value="" disabled style="border:none"/>
+        <input type="text" class="role" value="" disabled style="border:none"/>
+        <input type="text" class="team" value="" disabled style="border:none"/>
+        <input type="text" class="branch" value="" disabled style="border:none"/>
+      </div>
+      <script>
+          $('.select_seller').on("change", function () {
+              $(`.select_seller`).find("option:selected").each(function() {
+                  if($(this).data("full_name")){
+                      full_name = $(this).data("full_name");
+                      $(`.full_name`).val(`Full name: ${full_name}`);
+                  }
+                  if($(this).data("role")){
+                      role = $(this).data("role");
+                      $(`.role`).val(`Role: ${role}`);
+                  }
+                  if($(this).data("team")){
+                      team = $(this).data("team");
+                      $(`.team`).val(`Team: ${team}`);
+                  }
+                  if($(this).data("branch")){
+                      branch = $(this).data("branch");
+                      $(`.branch`).val(`Branch : ${branch}`);
+                  }
+              });
+          });
+      </script>
       <% if params[:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id %>
       <% elsif params[:sale_type_id].to_i == SaleType.find_by(name: "New member").id %>
         <% if sale.buyer.present? && sale.buyer_type == "Member" %>
@@ -119,44 +158,90 @@
   </div>
 
   <div class="row">
-    <div class="sexteen wide column">
+    <div class="sixteen wide column">
       <div class="field ">
-        <div class="item">
-          <h3>Products</h3>
-          <table class="ui celled table">
-            <thead>
-            <tr style="text-align: center">
-              <th>Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody class="products">
-            <tr>
-              <td>
-                <select class="select1" name="sale[items][0][product_id]" style="border: none;">
-                  <option value="">Select product</option>
-                  <% Product.all.each do |product| %>
-                    <option value="<%=product.id %>" data-price="<%=product.sales_price %>"><%=product.name%></option>
-                  <% end %>
-                </select>
-              </td>
-              <td style="text-align: center">
-                <input type="number" name="sale[items][0][price]" value="" class="payunit" disabled style="border:none"/>
-              </td>
-              <td>
-                <input type="text" name="sale[items][0][quantity]" placeholder="quantity of product"
-                       required="required" class="quantity"
-                  style="border: none"/>
-              </td>
-              <td style="text-align: center">
-                <input type="number" name="sale[items][0][total]" value="" class="total-of-product" disabled style="border:none"/>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
+        <% if sale.sales_products.present? %>
+          <div class="item">
+            <h3>Products</h3>
+            <table class="ui celled table">
+              <thead>
+              <tr style="text-align: center">
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody class="products">
+              <tr>
+                <% sale.sales_products.each_with_index do |sale, i| %>
+                  <td>
+                    <select class="select1" name="sale[items][<%= i %>][product_id]" style="border: none;">
+                      <option value="<%=sale.product.id %>"> <%= sale.product.name %></option>
+                      <% Product.all.each do |product| %>
+                        <option value="<%=product.id %>" data-price="<%=product.sales_price %>"><%=product.name%></option>
+                      <% end %>
+                    </select>
+                  </td>
+                  <td style="text-align: center">
+                    <input type="number" name="sale[items][<%= i %>][price]" value="<%= sale.product.sales_price%>" class="payunit" disabled style="border:none"/>
+                  </td>
+                  <td>
+                    <input type="text" name="sale[items][0][quantity]" placeholder="quantity of product"
+                           required="required" class="quantity" value="<%= sale.quantity %>"
+                           style="border: none"/>
+                  </td>
+                  <td style="text-align: center">
+                    <input type="number" name="sale[items][0][total]" value="<%= sale.amount %>" class="total-of-product" disabled style="border:none"/>
+                  </td>
+                  <td style="text-align: center">✕</td>
+                <% end %>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        <% else %>
+          <div class="item">
+            <h3>Products</h3>
+            <table class="ui celled table">
+              <thead>
+              <tr style="text-align: center">
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody class="products">
+              <tr>
+                <td>
+                  <select class="select1" name="sale[items][0][product_id]" style="border: none;">
+                    <option value="">Select product</option>
+                    <% Product.all.each do |product| %>
+                      <option value="<%=product.id %>" data-price="<%=product.sales_price %>"><%=product.name%></option>
+                    <% end %>
+                  </select>
+                </td>
+                <td style="text-align: center">
+                  <input type="number" name="sale[items][0][price]" value="" class="payunit" disabled style="border:none"/>
+                </td>
+                <td>
+                  <input type="text" name="sale[items][0][quantity]" placeholder="quantity of product"
+                         required="required" class="quantity"
+                         style="border: none"/>
+                </td>
+                <td style="text-align: center">
+                  <input type="number" name="sale[items][0][total]" value="" class="total-of-product" disabled style="border:none"/>
+                </td>
+                <td style="text-align: center">✕</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
+
         <h4 style="float: right; display: flex; align-items: center">
           Total:<input type="number" name="total" value=""
                        class="total-of-products" disabled style="border:none"/>
@@ -178,14 +263,19 @@
   </div>
   <script>
       $(document).ready(function(){
+          var sum = 0;
+          $(".total-of-product").each(function(){
+              sum += +$(this).val();
+          });
+          $(".total-of-products").val(sum);
           $(".add").click(function () {
               var item = $(
                   '<tr>' +
                   '<td>' +
                   '<select class="select1" name="sale[items][1][product_id]" style="border: none;">' +
                   '<option value="">Select product</option>' +
-              '<% Product.all.each do |product| %>' +
-                '<option value="<%=product.id %>" data-price="<%=product.sales_price %>"><%=product.name%></option>' +
+                  '<% Product.all.each do |product| %>' +
+                  '<option value="<%=product.id %>" data-price="<%=product.sales_price %>"><%=product.name%></option>' +
                   '<% end %>' +
                   '</select>' +
                   '</td>' +
@@ -198,6 +288,10 @@
                   '<td style="text-align: center">' +
                   '<input type="number" name="sale[items][1][total]" value="" class="total-of-product" disabled style="border:none"/>' +
                   '</td>' +
+                  '</td>' +
+                  '<td style="text-align: center">' +
+                  '<a class="remove">✕</a>' +
+                  '</td>' +
                   '</tr>');
 
               item.appendTo(".products");
@@ -205,6 +299,11 @@
               $(".remove", item).click(function() {
                   item.remove();
                   updateNamesOfInputs();
+                  sum = 0;
+                  $(".total-of-product").each(function(){
+                      sum += +$(this).val();
+                  });
+                  $(".total-of-products").val(sum);
               });
               $('.select1').on("change", function () {
                   var price = 0;
@@ -215,11 +314,7 @@
                           $(`input[name="sale[items][${index}][price]"]`).val(price);
                       }
                   });
-                  var sum = 0;
-                  $(".total-of-product").each(function(){
-                      sum += +$(this).val();
-                  });
-                  $(".total-of-products").val(sum);
+
               });
               $('.quantity').on('change', function(){
                   $('.quantity').each(function(index){

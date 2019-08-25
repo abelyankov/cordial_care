@@ -15,6 +15,7 @@ module Erp
       unless ['', 'all'].include? params.fetch(:sale_type_id, "all")
         @sales = @sales.where(sale_type_id: params[:sale_type_id])
       end
+        @sales = @sales.order(updated_at: :desc)
     end
 
     def show
@@ -34,9 +35,9 @@ module Erp
       @sale = Sale.new(permitted_params)
       @sale.status = :new
       @sale.sale_type_id = params[:sale][:sale_type_id]
-      @sale.seller_id = params[:sale][:seller_id]
+      @sale.seller_id = params[:seller_id]
       if params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id
-        @sale.buyer = Member.find(params[:sale][:seller_id])
+        @sale.buyer = Member.find(params[:seller_id])
       elsif params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "New member").id
         b = Member.new(username: params[:sale][:member][:username],
                        first_name: params[:sale][:member][:first_name],
@@ -67,7 +68,7 @@ module Erp
           b.errors
         end
       end
-      seller = Member.find_by(id: params[:sale][:seller_id])
+      seller = Member.find_by(id: params[:seller_id])
       @sale.team = seller.team
       @sale.sale_date = params[:sale][:sale_date]
       permitted_items = params.require(:sale).permit([items: [:product_id, :quantity]])
@@ -109,9 +110,9 @@ module Erp
       @sale = Sale.find(params[:id])
       @sale.status = :updated
       @sale.sale_type_id = params[:sale][:sale_type_id]
-      @sale.seller_id = params[:sale][:seller_id]
+      @sale.seller_id = params[:seller_id]
       if params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "Self purchasing").id
-        @sale.buyer = Member.find(params[:sale][:seller_id])
+        @sale.buyer = Member.find(params[:seller_id])
       elsif params[:sale][:sale_type_id].to_i == SaleType.find_by(name: "New member").id
         b = Member.find_by(id: @sale.buyer_id)
         b.update(username: params[:sale][:member][:username],
@@ -144,7 +145,7 @@ module Erp
           b.errors
         end
       end
-      seller = Member.find_by(id: params[:sale][:seller_id])
+      seller = Member.find_by(id: params[:seller_id])
       @sale.team = seller.team
       @sale.sale_date = params[:sale][:sale_date]
       permitted_items = params.require(:sale).permit([items: [:product_id, :quantity]])

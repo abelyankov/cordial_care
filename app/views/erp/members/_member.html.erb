@@ -1,15 +1,19 @@
 <tbody>
 <tr>
-  <td style="text-align: center">
     <% p = [] %>
     <% Sale.where(seller_id: member.id, sale_date: (Date.today.beginning_of_month..Date.today.end_of_month)).each do |sale| %>
       <% p << sale.member_profit %>
     <% end %>
     <% if p.sum() == 0 %>
+    <td class="warning" style="text-align: center">
+      <i class="attention icon"></i>  #<%= member.membership_id %>
+    </td>
     <% else %>
+    <td style="text-align: center">
       #<%= member.membership_id%>
+    </td>
     <% end %>
-  </td>
+
   <td>
     Full Name: <%= member.full_name %>;
     <div class="ui red mini label"> Team:<%= member.team.name %></div>
